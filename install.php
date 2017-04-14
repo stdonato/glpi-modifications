@@ -44,15 +44,13 @@ if(!is_file(GLPI_ROOT.'/index.php.bak')) {
 
 else {
 
-	copy(GLPI_MOD_DIR.'/index.php', GLPI_ROOT.'/index.php');
+	exec('cp '.GLPI_MOD_DIR.'/index.php '.GLPI_ROOT.'/index.php');
 	exec('cp '.GLPI_MOD_DIR.'/css/js/*.js '.GLPI_ROOT.'/css/js/');
 	exec('cp '.GLPI_MOD_DIR.'/css/ie.css '.GLPI_ROOT.'/css/ie.css');
 	exec('cp '.GLPI_MOD_DIR.'/css/style.css '.GLPI_ROOT.'/css/style.css');
+	
+	exec('service apache2 reload');
+	
 }	
-
-//1.0.2
-if(is_file(GLPI_ROOT.'/script.js.bak')) {
-	copy(GLPI_MOD_DIR.'/script.js', GLPI_ROOT.'/script.js');
-}		
 
 ?>

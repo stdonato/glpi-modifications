@@ -96,9 +96,33 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
     
 	 <script src="lib/jquery/js/jquery-1.10.2.min.js"></script>
     <script src="css/js/bootstrap.js"></script> 
+
+	<style type="text/css">
+		html, body {
+			background:  url("./pics/bg/back.jpg") repeat-x fixed;
+		}
+		
+		#login-body {
+/*			background-color: rgba(245,245,245,0.75);*/
+		}
+			  
+		video#bgvid { 		
+			position: fixed; right: 0; bottom: 0;		
+			min-width: 100%; min-height: 100%;		
+			width: auto; height: auto; z-index: -900;		
+			background: url(cloud.png) no-repeat;		
+			background-size: cover; 		
+		}
+	</style>      
+    
 </head>
 <body>
-<div class="container">           
+
+<div class="container">  
+
+	<video autoplay loop poster="cloud.png" id="bgvid" style="z-index:-999; position:absolute;">
+		<source src="./pics/vids/bg.mp4x" type="video/mp4">
+	</video>         
 
     <div class="row login">
 		  	<div id='text-login' class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">

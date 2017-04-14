@@ -6,7 +6,7 @@ function plugin_init_mod() {
              
    $PLUGIN_HOOKS['csrf_compliant']['mod'] = true;   
       
-   //$PLUGIN_HOOKS['config_page']['mod'] = 'front/config.php';
+   $PLUGIN_HOOKS['config_page']['mod'] = 'config.php';
                 
 }
 
