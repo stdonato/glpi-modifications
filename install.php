@@ -36,8 +36,8 @@ if(!is_file(GLPI_ROOT.'/index.php.bak')) {
 	exec('cp '.GLPI_MOD_DIR.'/pics/*.png '.GLPI_ROOT.'/pics');
 	exec('cp '.GLPI_MOD_DIR.'/pics/*.jpg '.GLPI_ROOT.'/pics');
 	exec('cp '.GLPI_MOD_DIR.'/pics/*.ico '.GLPI_ROOT.'/pics');
-	
-	
+	exec('cp -r '.GLPI_MOD_DIR.'/pics/bg '.GLPI_ROOT.'/pics');
+		
 	exec('service apache2 reload');
 
 }
@@ -48,6 +48,10 @@ else {
 	exec('cp '.GLPI_MOD_DIR.'/css/js/*.js '.GLPI_ROOT.'/css/js/');
 	exec('cp '.GLPI_MOD_DIR.'/css/ie.css '.GLPI_ROOT.'/css/ie.css');
 	exec('cp '.GLPI_MOD_DIR.'/css/style.css '.GLPI_ROOT.'/css/style.css');
+	exec('cp '.GLPI_MOD_DIR.'/css/styles.css '.GLPI_ROOT.'/css/styles.css');
+	exec('cp '.GLPI_MOD_DIR.'/inc/*.php '.GLPI_ROOT.'/inc');
+	exec('cp '.GLPI_MOD_DIR.'/pics/logo_big-def.png '.GLPI_ROOT.'/pics');
+	exec('cp -r '.GLPI_MOD_DIR.'/pics/bg '.GLPI_ROOT.'/pics');	
 	
 	exec('service apache2 reload');
 	

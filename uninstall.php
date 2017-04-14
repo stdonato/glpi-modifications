@@ -38,7 +38,9 @@ if(is_file(GLPI_ROOT.'/index.php.bak')) {
 	exec('rm '.GLPI_ROOT.'/pics/logo-glpi-login.png');
 	exec('rm '.GLPI_ROOT.'/pics/logo.png');
 	exec('rm '.GLPI_ROOT.'/pics/logo_big.png');
+	exec('rm '.GLPI_ROOT.'/pics/logo_big-def.png');
 	exec('rm '.GLPI_ROOT.'/pics/back.jpg');
+	exec('rm -r '.GLPI_ROOT.'/pics/bg');
 	
 	rename(GLPI_ROOT.'/pics/favicon.ico.bak', GLPI_ROOT.'/pics/favicon.ico');
 	rename(GLPI_ROOT.'/pics/login_logo_glpi.png.bak', GLPI_ROOT.'/pics/login_logo_glpi.png');
