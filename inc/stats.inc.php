@@ -9,31 +9,26 @@ $userid =  $_SESSION['glpiID'];
 $profid = $_SESSION['glpiactiveprofile']['id'];
 $activeent = $_SESSION['glpiactive_entity'];
 
-//if ( $profid == 4 ) {
-if ($profid == 3 || $profid == 4 || $profid == 7) {
-
+//root entity - get all entities for user
+if($activeent == 0) {
 	$entities = Profile_User::getUserEntities($_SESSION['glpiID'], true);
-	
-	if($activeent <> 0) {
-		//get user entities for admins
-		//$entities = Profile_User::getUserEntities($_SESSION['glpiID'], true);
-		$ent = implode(",",$entities);
-		$entidade = "AND glpi_tickets.entities_id IN (".$activeent.")";
-		$getuser = "";
-	}	
-	else {
-		//get user entities for admins
-		//$entities = Profile_User::getUserEntities($_SESSION['glpiID'], true);
-		$ent = implode(",",$entities);
-		$entidade = "AND glpi_tickets.entities_id IN (".$ent.")";
-		$getuser = "";
-	}		
+	$activeent = implode(",",$entities);
+}
+
+if ($profid == 3 || $profid == 4 || $profid == 6 || $profid == 7) {
+
+	//get user entities for admins
+	$entities = Profile_User::getUserEntities($_SESSION['glpiID'], true);
+	$ent = implode(",",$entities);
+	$entidade = "AND glpi_tickets.entities_id IN (".$activeent.")";
+	$getuser = "";
 }
 
 else {
   //technician
   $entidade = "AND glpi_tickets.entities_id IN (".$activeent.")";
-  $getuser = "AND glpi_users.id IN = " . $userid ."" ;
+  $getuser = "";
+  //$getuser = "AND glpi_users.id IN = " . $userid ."" ;
 }
 
 //total de chamados abertos
@@ -116,6 +111,8 @@ $href_solv = $CFG_GLPI["root_doc"]."/front/ticket.php?is_deleted=0&criteria[0][f
 $href_pend = $CFG_GLPI["root_doc"]."/front/ticket.php?is_deleted=0&criteria[0][field]=12&criteria[0][searchtype]=equals&criteria[0][value]=4&itemtype=Ticket&start=0";
 $href_due  = $CFG_GLPI["root_doc"]."/front/ticket.php?is_deleted=0&criteria[0][field]=82&criteria[0][searchtype]=equals&criteria[0][value]=1&criteria[1][link]=AND&criteria[1][field]=12&criteria[1][searchtype]=equals&criteria[1][value]=notold&itemtype=Ticket&start=0";
 
+//var_dump($entidade);
+
 echo '
 <style>
 
@@ -126,17 +123,14 @@ echo '
 </style>
 
   <table id="tab_stats" style="text-align:center; margin:auto; width:90%; margin-bottom:20px; background:#fff; border: 1px solid #ddd; table-layout: fixed;" >
-  	<tr>
-      <td style="border-right: 1px solid #ddd; padding: 5px;"><span><a href='.$href_cham .' style="font-size:22pt; color:#337AB7;">' . $total_geral . '</a> </span> </p><span style="color:#333; font-size:14pt;"> '. _nx('ticket','Opened','Opened',2) . '</span></td>
-      <td style="border-right: 1px solid #ddd;"><span><a href='.$href_new .' style="font-size:22pt; color:#555;">' . $total_new . '</a> </span> </p><span style="color:#333; font-size:14pt;"> '. Ticket::getStatus(1) .' </span></td>
-      <td style="border-right: 1px solid #ddd;"><span><a href='.$href_pro .' style="font-size:22pt; color:#49BF8F;">' . $total_pro . '</a></span> </p><span style="color:#333; font-size:14pt;"> '. __('Processing') . ' </span></td>
-      <td style="border-right: 1px solid #ddd;"><span><a href='.$href_solv .' style="font-size:22pt; color:#000;">' . $total_solv . '</a></span> </p><span style="color:#333; font-size:14pt;"> '. Ticket::getStatus(5) .'</span></td>
-      <td style="border-right: 1px solid #ddd;"><span><a href='.$href_pend .' style="font-size:22pt; color:#FFA830;">' . $total_pend . '</a> </span> </p><span style="color:#333; font-size:14pt;"> '. Ticket::getStatus(4) .' </span></td>
-      <td style="border-right: 0px solid #ddd;"><span><a href='.$href_due .' style="font-size:22pt; color:#D9534F;">' . $total_due . '</a>  </span> </p><span style="color:#333; font-size:14pt;"> '. __('Late') . ' </span></td>
-  </tr>
+	  	<tr>
+	      <td style="border-right: 1px solid #ddd; padding: 5px;"><span><a href='.$href_cham .' style="font-size:22pt; color:#337AB7;">' . $total_geral . '</a> </span> </p><span style="color:#333; font-size:14pt;"> '. _nx('ticket','Opened','Opened',2) . '</span></td>
+	      <td style="border-right: 1px solid #ddd;"><span><a href='.$href_new .' style="font-size:22pt; color:#555;">' . $total_new . '</a> </span> </p><span style="color:#333; font-size:14pt;"> '. Ticket::getStatus(1) .' </span></td>
+	      <td style="border-right: 1px solid #ddd;"><span><a href='.$href_pro .' style="font-size:22pt; color:#49BF8F;">' . $total_pro . '</a></span> </p><span style="color:#333; font-size:14pt;"> '. __('Processing') . ' </span></td>
+	      <td style="border-right: 1px solid #ddd;"><span><a href='.$href_solv .' style="font-size:22pt; color:#000;">' . $total_solv . '</a></span> </p><span style="color:#333; font-size:14pt;"> '. Ticket::getStatus(5) .'</span></td>
+	      <td style="border-right: 1px solid #ddd;"><span><a href='.$href_pend .' style="font-size:22pt; color:#FFA830;">' . $total_pend . '</a> </span> </p><span style="color:#333; font-size:14pt;"> '. Ticket::getStatus(4) .' </span></td>
+	      <td style="border-right: 0px solid #ddd;"><span><a href='.$href_due .' style="font-size:22pt; color:#D9534F;">' . $total_due . '</a>  </span> </p><span style="color:#333; font-size:14pt;"> '. __('Late') . ' </span></td>
+	  </tr>
   </table> ';
-
-//echo $ent;
-//print_r($activeent);
 
 ?>
