@@ -35,9 +35,9 @@ $result_due = $DB->query($sql_due);
 $due = $DB->result($result_due,0,'due');
 
 if($due > 0) {
-	$href_due = "".$CFG_GLPI["root_doc"]."/front/ticket.php?is_deleted=0&criteria[0][field]=5&criteria[0]
-	[searchtype]=equals&criteria[0][value]=".$_SESSION['glpiID']."&criteria[1][link]=AND&criteria[1][field]=82
-	&criteria[1][searchtype]=equals&criteria[1][value]=1&itemtype=Ticket&start=0";
+	$href_due = "".$CFG_GLPI["root_doc"]."/front/ticket.php?is_deleted=0&criteria[0][field]=5&criteria[0][searchtype]=equals&criteria[0][value]=".$_SESSION['glpiID']."
+&criteria[1][link]=AND&criteria[1][field]=82 + [searchtype]=equals&criteria[0][value]=".$_SESSION['glpiID']."&criteria[1][link]=AND&criteria[1][field]=82&criteria[1]
+[searchtype]=equals&criteria[1][value]=1&criteria[3][link]=AND&criteria[3][field]=12&criteria[3][searchtype]=equals&criteria[3][value]=notclosed&itemtype=Ticket&start=0";
 }
 else { $href_due = "#"; }
 

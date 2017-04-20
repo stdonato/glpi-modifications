@@ -1,8 +1,8 @@
 
 /* ===== LOGIN ===== */
 
-#firstboxlogin  {
-   background-color: #006573;
+body { 
+	background-color: #effcfc !important;	 
 }
 
 #logo_login {

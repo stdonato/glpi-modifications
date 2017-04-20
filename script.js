@@ -939,15 +939,33 @@ $(function(){
    $.ui.dialog.prototype._focusTabbable = function(){};
 });
 
+	$(function(){
+			var nav = $('#c_menu');			
+			var nav2 = $('menu_all_button');
+			var nav3 = $('#c_ssmenu2');
+					
+			$(window).scroll(function () {
+				if ($(this).scrollTop() > 50) {
+					nav.addClass('menu-fixo');
+					nav2.addClass('menu-fixo');
+					nav3.addClass('menu-fixo2');
+				} else {
+					nav.removeClass('menu-fixo');
+					nav2.removeClass('menu-fixo');
+					nav3.removeClass('menu-fixo2');
+				}
+			});
+		});
 
-/* Fixed footer */
- $(document).ready(function() {
-
-   var docHeight = $(window).height();
-   var footerHeight = $('#footer').height();
-   var footerTop = $('#footer').position().top + footerHeight;
-
-   if (footerTop < docHeight) {
-    $('#footer').css('margin-top', 4+ (docHeight - footerTop) + 'px');
-   }
-  });
+		
+		/* Fixed footer */
+		 $(document).ready(function() {
+		
+		   var docHeight = $(window).height();
+		   var footerHeight = $('#footer').height();
+		   var footerTop = $('#footer').position().top + footerHeight;
+		
+		   if (footerTop < docHeight) {
+		    $('#footer').css('margin-top', 4+ (docHeight - footerTop) + 'px');
+		   }
+		  });

@@ -1,6 +1,10 @@
 
 /* ===== LOGIN ===== */
 
+body { 
+	background-color: #f2e4dc !important;	 
+}
+
 #firstboxlogin  {
    background-color: #19BEC0;
 }

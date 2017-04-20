@@ -1,6 +1,11 @@
 
 /* ===== LOGIN ===== */
 
+body { 
+	background-color: #eaf2e1 !important;	 
+}
+
+
 #firstboxlogin  {
    background-color: #8EC547;
 }
@@ -84,7 +89,7 @@ ul#menu ul li a {
 /* ====== BUTTONS ====== */
 a.vsubmit, 
 .vsubmit a {
-   color: #c1e6ba;
+   color: #666;
 }
 
 /* ====== PANEL COMPONENTS ====== */

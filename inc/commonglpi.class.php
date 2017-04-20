@@ -709,7 +709,7 @@ class CommonGLPI {
 	 $central = "central.php";    
     
     if(strstr($url,$central)) {
-	    if ($profid == 3 || $profid == 4 || $profid == 7) {
+	    if ($profid == 3 || $profid == 4 || $profid == 6 || $profid == 7) {
 	      include('stats.inc.php');
 	    }
  	 }
