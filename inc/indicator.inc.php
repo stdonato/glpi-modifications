@@ -1,5 +1,12 @@
 <?php
 
+
+if (!defined('GLPI_ROOT')) {
+   die("Sorry. You can't access directly to this file");
+}
+
+global $DB, $CFG_GLPI;
+
 echo Html::css($CFG_GLPI["root_doc"]."/css/font-awesome.css");
 
 //Stevenes Donato
@@ -25,8 +32,8 @@ WHERE glpi_tickets.status NOT IN (5,6)
 AND glpi_tickets.is_deleted = 0
 AND glpi_tickets.id = glpi_tickets_users.tickets_id
 AND glpi_tickets_users.users_id = glpi_users.id
-AND glpi_tickets.due_date IS NOT NULL
-AND glpi_tickets.due_date < NOW()
+AND glpi_tickets.time_to_resolve IS NOT NULL
+AND glpi_tickets.time_to_resolve < NOW()
 AND glpi_tickets_users.type = 2
 AND glpi_users.id = ".$_SESSION['glpiID']." ";
 
@@ -35,9 +42,9 @@ $result_due = $DB->query($sql_due);
 $due = $DB->result($result_due,0,'due');
 
 if($due > 0) {
-	$href_due = "".$CFG_GLPI["root_doc"]."/front/ticket.php?is_deleted=0&criteria[0][field]=5&criteria[0][searchtype]=equals&criteria[0][value]=".$_SESSION['glpiID']."
-&criteria[1][link]=AND&criteria[1][field]=82 + [searchtype]=equals&criteria[0][value]=".$_SESSION['glpiID']."&criteria[1][link]=AND&criteria[1][field]=82&criteria[1]
-[searchtype]=equals&criteria[1][value]=1&criteria[3][link]=AND&criteria[3][field]=12&criteria[3][searchtype]=equals&criteria[3][value]=notclosed&itemtype=Ticket&start=0";
+	$href_due = "".$CFG_GLPI["root_doc"]."/front/ticket.php?is_deleted=0&criteria[0][field]=5&criteria[0]
+	[searchtype]=equals&criteria[0][value]=".$_SESSION['glpiID']."&criteria[1][link]=AND&criteria[1][field]=82
+	&criteria[1][searchtype]=equals&criteria[1][value]=1&itemtype=Ticket&start=0";
 }
 else { $href_due = "#"; }
 
@@ -99,11 +106,17 @@ if($number <= 0)  { $label2 = 'label-success'; }
 if($number >= 4  && $number <= 5) { $label2 = 'label-warning'; }
 if($number > 5) { $label2 = 'label-danger'; }	     
 
-//echo "</ul>\n"; 
+
+echo "
+<style>
+	@media screen and (max-width: 750px) {
+	  #count { display:none; }
+	}
+</style>\n";
+
 
 //tasks
-
-echo "<li id='count' class='' style='font-size:12px;' title='". _n('Ticket task','Ticket tasks',2) ."'>";
+echo "<ul><li id='count' class='' style='font-size:12px;' title='". _n('Ticket task','Ticket tasks',2) ."'>";
 echo "<a href='".$href_tasks."' class='' data-toggle='dropdown' role='button' aria-expanded='false'>
 		<i class='fa fa-tasks' style='vertical-align:bottom; font-size:15px;'></i> 
 		<span class='label ".$label3."' style='font-size:12px;' >". $num_tasks. "</span></a>\n";
@@ -111,29 +124,24 @@ echo "</li>\n";
 
 //late tickets
 echo "<li id='count' class='dropdown' style='font-size:12px;' title='". __('Late') ."'>
-<a href='".$href_due."'>
-<i style='vertical-align:bottom; font-size:15px;' class='fa fa-clock-o'></i>
-<span class='label ".$label."' style='font-size:12px;'>". $due. "</span></a></li>\n";
+		<a href='".$href_due."'>
+		<i style='vertical-align:bottom; font-size:15px;' class='fa fa-clock-o clockx'></i>
+		<span class='label ".$label."' style='font-size:12px;'>". $due. "</span></a></li>\n";
 
 //tickets
 echo "<li id='count' class='dropdown' style='font-size:12px;' title='". _nx('ticket','Opened','Opened',2) ."'>
-<a href='".$href_cham."'>
-<i style='vertical-align:bottom; font-size:16px;' class='fa fa-ticket' ></i>
-<span class='label ".$label2."' style='font-size:12px;' >". $number. "</span></a></li>\n";
+		<a href='".$href_cham."'>
+		<i style='vertical-align:bottom; font-size:16px;' class='fa fa-ticket' ></i>
+		<span class='label ".$label2."' style='font-size:12px;' >". $number. "</span></a></li>\n";
 
-
+//new ticket
 echo "<li id='count' class='' style='font-size:12px; margin-top:0px;' title='". __('Create ticket') ."'>";
 echo "<a href='".$CFG_GLPI["root_doc"]."/front/ticket.form.php' style='margin-top:2px;' data-toggle='dropdown' role='button' aria-expanded='false'>
 		<!-- <i class='fa fa-plus' style='vertical-align:bottom; font-size:15px;'></i>  -->
 		<span class='label label-primary' style='font-size:12px;' >
-			<i class='fa fa-plus' style='vertical-align:bottom; font-size:15px;'></i> 
+			<i class='fa fa-plus fa-plus-mod' style='vertical-align:bottom; font-size:15px;'></i> 
 		</span></a>\n";
-echo "</li>\n";
-
-
-//echo "</ul>";
-//echo "</div>\n";
-//Stevenes - end
+echo "</li></ul>\n";
       
      
 ?>     

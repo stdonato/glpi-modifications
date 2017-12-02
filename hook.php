@@ -6,7 +6,6 @@ function plugin_mod_install(){
 	return true;
 }
 
-
 function plugin_mod_uninstall(){
 		
 	include('uninstall.php');
