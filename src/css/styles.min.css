@@ -650,10 +650,14 @@ input.submit[type=reset] {
    padding-right: 50px;
 }
 
-#page .fa.disclose {
+#page .disclosablefield {
    position: relative;
-   left: -40px;
-   top: 2px
+}
+
+#page .disclosablefield span {
+   position: absolute;
+   right: 0;
+   top: 0;
 }
 
 /* ################--------------- Layout  ---------------#################### */
@@ -833,7 +837,8 @@ input.submit[type=reset] {
 
    .layout_vsplit.form table.tab_cadre_pager,
    .layout_vsplit.form table.tab_cadre_fixe,
-   .layout_vsplit.form table.tab_cadre_fixehov {
+   .layout_vsplit.form table.tab_cadre_fixehov,
+   .layout_vsplit.form .dates_timelines {
       width: 100%;
       margin: 0;
    }
@@ -3127,6 +3132,7 @@ a.copyright {
 
 .timeline_box textarea {
    resize: vertical;
+   width: 97%;
 }
 
 /** FORM **/
@@ -3196,7 +3202,7 @@ a.copyright {
    width: 100%;
 }
 
-.timeline_history h2 {
+.timeline_history > h2 {
    float: left;
 }
 
@@ -4452,14 +4458,14 @@ td.diff del {
    min-height: 1em; /** Ensure no event message is displayed well */
 }
 
-.loadingindicator {
+/*.loadingindicator {
    background:  #fff url(../pics/spinner.48.gif) no-repeat center .5em;
    padding: 60px .5em .5em;
    text-align: center;
    max-width: 350px;
    margin : auto;
    border: none;
-}
+}*/
 
 .small {
    width: 1%;
@@ -4477,6 +4483,7 @@ td.diff del {
    min-height: 100vh;
    height: calc(100% - 28px); /* Without footer */
    border: none;
+   overflow: auto;
 }
 
 .slidepanel a.fa, .slidepanel a.fa:link {
@@ -4570,6 +4577,12 @@ td.diff del {
 
 .slidepanel td * {
    vertical-align: middle;
+}
+
+.slidepanel .toggle {
+   font-size: 1.5em;
+   position: absolute;
+   right: .2em;
 }
 
 /** end "slide panel" component */
@@ -4899,6 +4912,11 @@ a.label:focus {
   background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }
+
+/*.pointer .fa-plus {
+	color: #FFF !important;	
+	font-size: 14px;
+}*/
 
 textarea {
 	width: 98% !important;
