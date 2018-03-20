@@ -125,10 +125,6 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
 			background-size:1925px 1200px;		
 			width: 100%; 
 		}
-		
-		#login-body {
-			/* background-color: rgba(245,245,245,0.75); */
-		}
 			  
 		video#bgvid { 		
 			position: fixed; right: 0; bottom: 0;		
@@ -174,7 +170,7 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
             
               <div class="form-group text-center">
                 <div class="logo">
-						<img src="pics/logo_big.png" alt="GLPI" class="logo2" />
+						<img src="pics/logo_big.png" alt="GLPI" class="logo2" height="150" />
                 </div>
               </div>
               <div class="form-group">

@@ -25,7 +25,7 @@ function plugin_version_mod(){
 	global $DB, $LANG;
 
 	return array('name'			   => __('GLPI Modifications'),
-					'version' 			=> '1.1.6',
+					'version' 			=> '1.1.7',
 					'author'			   => '<a href="mailto:stevenesdonato@gmail.com"> Stevenes Donato </b> </a>',
 					'license'		 	=> 'GPLv2+',
 					'homepage'			=> 'https://forge.glpi-project.org/projects/mod',
@@ -34,7 +34,10 @@ function plugin_version_mod(){
 
 function plugin_mod_check_prerequisites(){
      if (GLPI_VERSION >= '9.2.2'){
-         return true;
+	     	if(file_exists('/etc/hosts')){      	
+	         return true;
+	     	}
+         
      } else {
          echo "GLPI version not compatible need 9.2.2";
      }
