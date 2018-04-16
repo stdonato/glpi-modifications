@@ -141,7 +141,7 @@ a.vsubmit,
 } 
 
 body { 
-	background-color: #e3e8f5 !important;	 
+	background-color: #ebeef0 !important;	  /*#e3e8f5*/
 }
 
 .fa-tasks, .fa-clock-ox, .clockx, .fa-ticket, .fa-plus-mod {color: #fff !important;}

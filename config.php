@@ -19,6 +19,10 @@ function imgLogo(){
 	copy('../../pics/logo_big-def.png','../../pics/logo_big.png');
 }
 
+function imgLogo_int(){	
+	copy('../../pics/bg/fd_logo-def.png','../../pics/fd_logo.png');
+}
+
 function indexMod(){
 	copy('../../index.php','../../index.php.bak');
 	copy('./src/index.php','../../index.php');
@@ -31,7 +35,6 @@ function indexDef(){
 
 function staOff(){
 	rename(GLPI_MOD_DIR.'/scripts/stats.js', GLPI_MOD_DIR.'/scripts/stats.js.bak');
-	//copy(GLPI_MOD_DIR.'/scripts/ind.js', GLPI_MOD_DIR.'/scripts/mod.js');	
 }
 
 function staOn(){
@@ -58,7 +61,7 @@ if ($plugin->isActivated("mod")) {
 
    Html::header('Plugin Modifications', "", "plugins", "mod");	      
 		  
-	echo "<div class='center' style='height:800px; width:80%; background:#fff; margin:auto; float:none;'><br><p>\n";
+	echo "<div class='center' style='height:900px; width:80%; background:#fff; margin:auto; float:none;'><br><p>\n";
    echo "<div id='config' class='center here ui-tabs-panel'>
    			<br><p>
         		<span style='color:blue; font-weight:bold; font-size:13pt;'>".__('Plugin Modifications')."</span> <br><br><p>\n";
@@ -142,8 +145,6 @@ if ($plugin->isActivated("mod")) {
 			</tr>\n";				
 	echo "</tbody></table>\n";		
 
-
-
 	// Background
 	echo "<table class='tab_cadrehov' border='0'>
 			<tbody>\n";		
@@ -168,11 +169,12 @@ if ($plugin->isActivated("mod")) {
 					Html::closeForm(); 
 	echo "	</td>
 			</tr>\n";
+	// Background		
 			
-	// Logo image		
+	// Logo index		
 	echo "<tr><td colspan='5'></td></tr>
 			<tr>
-				<td colspan='5'>Logo (png 200x200px): </td> 
+				<td colspan='5'>Logo - Index (png 150 X 150px): </td> 
 			</tr>\n";
 			
 	echo "<tr>				
@@ -193,10 +195,37 @@ if ($plugin->isActivated("mod")) {
 					Html::closeForm(); 
 	echo "	</td>
 			</tr>\n";
+	// Logo index		
+	
+  // Logo internal 100x55		
+	echo "<tr><td colspan='5'></td></tr>
+			<tr>
+				<td colspan='5'>Logo (png 100 X 55px): </td> 
+			</tr>\n";
+			
+	echo "<tr>				
+				<td width='210' style='background:#f2f2f2;'> <img src='../../pics/fd_logo.png?v=".Date("Y.m.d.G.i.s")." height='100' /> </td>
+				<td width='100'>".__('Upload').":</td>
+				<td>
+					<form action='uplogo_int.php' method='post' enctype='multipart/form-data' class='fileupload'>
+						<input type='file' name='photo2' size='25' /><p><br>
+						<input class='submit' type='submit' name='submit' value='".__('Send')."' />";
+					Html::closeForm(); 
+	echo "	</td>
+				<td>
+					<form action='config.php?act=logo_int' method='post'> ";
+					    if ($action == 'logo_int') {
+        				 	imgLogo_int();						
+    					 }
+	echo "		<input class='submit' type='submit' value='".__('Default')."' />";
+					Html::closeForm(); 
+	echo "	</td>
+			</tr>\n";
+	// Logo internal	
 		
 	echo "</tbody></table>\n";
                 
-	echo "		<div id='back' class='center' style='margin-top:50px;'>
+	echo "		<div id='back' class='center' style='margin-top:30px;'>
 						<a class='vsubmit' type='submit' onclick=\"window.location.href = '". $CFG_GLPI['root_doc'] ."/front/plugin.php';\" >  ".__('Back')." </a> 
 					</div>
 				</div>

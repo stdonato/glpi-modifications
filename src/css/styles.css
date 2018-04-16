@@ -1080,6 +1080,7 @@ td { }
    color: #2E2E2E;
    font-size: 11px;
    border-bottom: 1px solid #EEE;
+   border-left: 0px !important;
 }
 /* to view link color must be the color of the palette
 .tab_cadre_fixehov th a, .tab_cadrehov th a {
@@ -2610,6 +2611,7 @@ a.icon_nav_move:hover img {
    display: inline-block;
    vertical-align: bottom;
    font-weight: bold;
+   display: none;
 }
 
 #language_link > a, #language_link > span {
@@ -2719,7 +2721,7 @@ ul#menu ul.ssmenu {
    width: 100px;
    height: 55px;
    float: left;
-   background: url("../pics/fd_logo.png") 0 0 repeat-x;
+   background: url("../pics/fd_logo.png") 0 0 no-repeat;
 }
 
 #header #c_logo a {
@@ -4837,10 +4839,6 @@ a.label:focus {
 }
 
 #language_link { display: none;}
-
-
-
-
 
 .progress {
   height: 20px;
