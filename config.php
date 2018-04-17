@@ -1,35 +1,33 @@
 <?php
 
 include ("../../inc/includes.php");
-include ("../../config/config.php");
-
-include_once (GLPI_ROOT."/config/based_config.php");
+include ("../../inc/config.php");
 
 if (!defined("GLPI_MOD_DIR")) {
-   define("GLPI_MOD_DIR",GLPI_ROOT . "/plugins/mod");
+   define("GLPI_MOD_DIR", GLPI_ROOT."/plugins/mod");
 }
 
 $plugin = new Plugin();
 
 function imgBack(){
-	copy('../../pics/bg/back-def.jpg','../../pics/bg/back.jpg');
+	copy(GLPI_ROOT.'/pics/bg/back-def.jpg',GLPI_ROOT.'/pics/bg/back.jpg');
 }
 
 function imgLogo(){	
-	copy('../../pics/logo_big-def.png','../../pics/logo_big.png');
+	copy(GLPI_ROOT.'/pics/logo_big-def.png',GLPI_ROOT.'/pics/logo_big.png');
 }
 
 function imgLogo_int(){	
-	copy('../../pics/bg/fd_logo-def.png','../../pics/fd_logo.png');
+	copy(GLPI_ROOT.'/pics/bg/fd_logo-def.png',GLPI_ROOT.'/pics/fd_logo.png');
 }
 
 function indexMod(){
-	copy('../../index.php','../../index.php.bak');
-	copy('./src/index.php','../../index.php');
+	copy(GLPI_ROOT.'/index.php',GLPI_ROOT.'/index.php.bak');
+	copy('./src/index.php',GLPI_ROOT.'/index.php');
 }
 
 function indexDef(){
-	copy('../../index.php.bak','../../index.php');
+	copy(GLPI_ROOT.'/index.php.bak',GLPI_ROOT.'/index.php');
 }
 
 

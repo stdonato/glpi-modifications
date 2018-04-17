@@ -1,6 +1,6 @@
 <?php
 
-include_once (GLPI_ROOT."/config/based_config.php");
+include_once (GLPI_ROOT."/inc/based_config.php");
 
 if (!defined("GLPI_MOD_DIR")) {
    define("GLPI_MOD_DIR", GLPI_ROOT."/plugins/mod");
@@ -26,7 +26,7 @@ if(!is_file(GLPI_ROOT.'/index.php.bak')) {
 	exec('cp -r '.GLPI_MOD_DIR.'/src/fonts '.GLPI_ROOT.'/');
 	
 	//images
-	rename(GLPI_ROOT.'/pics/favicon.ico', GLPI_ROOT.'/pics/favicon.ico.bak');
+	//rename(GLPI_ROOT.'/pics/favicon.ico', GLPI_ROOT.'/pics/favicon.ico.bak');
 	rename(GLPI_ROOT.'/pics/login_logo_glpi.png', GLPI_ROOT.'/pics/login_logo_glpi.png.bak');
 	rename(GLPI_ROOT.'/pics/logo-glpi-login.png', GLPI_ROOT.'/pics/logo-glpi-login.png.bak');
 	exec('cp '.GLPI_ROOT.'/pics/fd_logo.png '.GLPI_ROOT.'/pics/fd_logo.png.bak');

@@ -1,6 +1,6 @@
 <?php
 
-include_once (GLPI_ROOT."/config/based_config.php");
+include_once (GLPI_ROOT."/inc/based_config.php");
 
 if (!defined("GLPI_MOD_DIR")) {
    define("GLPI_MOD_DIR", GLPI_ROOT . "/plugins/mod");
