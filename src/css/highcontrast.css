@@ -57,8 +57,15 @@ table {
 .tab_cadre_postonly th, .tab_cadre_postonly td,
 .main_form tr.headerRow th {
    border-bottom: 1px solid #ADADAD;
+   border-top: 1px solid #ADADAD;
    box-sizing: border-box;
    border-collapse: collapse;
+}
+/* Removes border on tables that have no tab_cadre class but nested in table with this class. */
+/* A border was set by previous rule if nested in previous selector. */
+table[class^="tab_cadre"] table:not([class^="tab_cadre"]) th,
+table[class^="tab_cadre"] table:not([class^="tab_cadre"]) td {
+   border: 0;
 }
 
 #searchcriterias .tab_cadre_fixe {
@@ -124,15 +131,23 @@ table {
 
 
 /****** TABS ******/
-.ui-tabs .ui-tabs-nav {
+.ui-tabs .ui-tabs-nav,
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav {
    border-bottom: 1px solid #878787;
+   padding:0;
 }
 
-.ui-tabs .ui-tabs-nav li {
-   border: 1px solid #878787;
+.ui-tabs .ui-tabs-nav li,
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li {
+   border-color: #878787;
    border-bottom: 0;
    box-sizing: border-box;
    border-collapse: collapse;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li {
+   border-right-width: 1px !important;
+   margin: 0;
+   width: 100%;
 }
 
 .layout_classic.form .stNavMain li, .layout_vsplit.form .stNavMain li {

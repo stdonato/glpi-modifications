@@ -4,14 +4,17 @@ html {
 	font-size: 12px;
 	height: 100%;
 }
+
 html, body {
-	height: 100%;	
+   height: 100%;	
+	width: 100%;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 100;	
 	color: #424a4d;	
-	background:  url("./pics/bg/back.jpg") repeat-x fixed;  
-	background-size:1920px 1024px;		
-	width: 100%;
+	background:  url("../pics/bg/back.jpg") no-repeat center center fixed;
+	background-size: cover;
+/*	background-size:1920px 1024px;		*/
+
 }
 
 #body2 {
@@ -946,8 +949,9 @@ div[data-role="editor-toolbar"] {
 
 /* new index*/
 .login {
-    margin-top:60px;
+    margin-top:45px;
 }
+
 .set-logo {
     background:#fff;
     color:#ddd;
@@ -1020,6 +1024,7 @@ div[data-role="editor-toolbar"] {
 	border-bottom-left-radius: 15px;
 	border-top-right-radius: 0px;
 	border-top-left-radius: 0px;
+/*	background: rgba(245, 245, 245, 0.75);*/
 }
 
 /* new index*/

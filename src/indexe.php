@@ -79,10 +79,7 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
    }
 
    Auth::checkAlternateAuthSystems(true, isset($_GET["redirect"])?$_GET["redirect"]:"");
-
-   // Send UTF8 Headers
-   header("Content-Type: text/html; charset=UTF-8");
-
+   
    $_SESSION['namfield'] = $namfield = uniqid('fielda');
    $_SESSION['pwdfield'] = $pwdfield = uniqid('fieldb');
    $_SESSION['rmbfield'] = $rmbfield = uniqid('fieldc');
@@ -119,6 +116,15 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
     <script src="css/js/bootstrap.js"></script> 
 
 	<style type="text/css">
+		html, body {			
+			height: 100%;	
+			font-family: 'Open Sans', sans-serif;
+			font-weight: 100;	
+			color: #424a4d;	
+			background:  url("./pics/bg/back.jpg") repeat-x fixed;  
+			background-size:1925px 1200px;		
+			width: 100%; 
+		}
 			  
 		video#bgvid { 		
 			position: fixed; right: 0; bottom: 0;		
@@ -141,10 +147,13 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
 <body>
 
 <div class="container">  
-       
+
+	<video autoplay loop poster="cloud.png" id="bgvid" style="z-index:-999; position:absolute;">
+		<!--- <source src="./pics/vids/bg.mp4x" type="video/mp4"> -->
+	</video>         
 
     <div class="row login">
-		  	<div id='text-login' class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
+		  	<div id='text-login' class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
 		  		<?php echo nl2br(Toolbox::unclean_html_cross_side_scripting_deep($CFG_GLPI['text_login'])); ?>  
 		  	</div>
 	      <div class="head col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
@@ -180,11 +189,35 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
               </div>
               
 				  <?php         
+               //entity select
+					$sql_ent = "SELECT COUNT(id) AS conta FROM glpi_entities";
+					$result_ent = $DB->query($sql_ent);
+					$conta = $DB->fetch_assoc($result_ent);
+				
+					if($conta['conta'] >= 2) {
+						
+						$sql_ent = "SELECT id, name FROM glpi_entities WHERE 1";
+						$result_ent = $DB->query($sql_ent);
+					
+						echo '<p class="login_input">
+						<select class="form-control" required name="active_entity" id="active_entity" style="width: 100%; height: 32px; color:#333" placeholder="'. __('Select the desired entity') .'">
+						<!--<option value="" disabled selected hidden></option>
+					   <option value=""></option>-->
+					   ';
+					   
+					   //$DB->data_seek($result_ent, 0);
+						while ($row = $DB->fetch_assoc($result_ent))		
+						{ 
+							echo "<option value=".$row['id'].">".$row['name']."</option>\n";		
+						}    
+					
+						echo '</select></p>'; 
+				   }    
+				   //entity select
+
 					 echo '<p class="login_input">';     
-				   // Add dropdown for auth (local, LDAPxxx, LDAPyyy, imap...)
-				   if ($CFG_GLPI['display_login_source']) {
-				      Auth::dropdownLogin();
-				   } 
+					 // Add dropdown for auth (local, LDAPxxx, LDAPyyy, imap...)
+					 Auth::dropdownLogin();   
 					 echo '</p>';
 				  ?>              
 				  <?php 
@@ -215,9 +248,9 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
 				    </a>
 			    </div>
 	            <?php
-						if ($CFG_GLPI["notifications_mailing"] && countElementsInTable('glpi_notifications', "`itemtype`='User' AND `event`='passwordforget' AND `is_active`=1")) {
-							echo '<div class="pull-right"><a href="front/lostpassword.php?lostpassword=1">'.__('Forgotten password?').'</a></div>';
-						} 				            			          				
+					    if ($CFG_GLPI["use_mailing"] && countElementsInTable('glpi_notifications', "`itemtype`='User' AND `event`='passwordforget' AND `is_active`=1")) {
+					      echo '<div class="pull-right"><a href="front/lostpassword.php?lostpassword=1">'.__('Forgotten password?').'</a></div>';
+					   }				            			          				
 					?>  
                 
               </div>
