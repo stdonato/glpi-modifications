@@ -21,12 +21,7 @@ if (document.getElementById('champRecherche') != null ) {
 
 	pluginModMenu();
 
-}
-
-	
-/*	if (window.location.href.indexOf("helpdesk.faq.php") === -1) {	
-		pluginModMenu();
-	}*/			
+}	
 	
 
 });

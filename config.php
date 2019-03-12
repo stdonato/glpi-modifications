@@ -21,16 +21,19 @@ function imgLogo_int(){
 	copy(GLPI_ROOT.'/pics/bg/fd_logo-def.png',GLPI_ROOT.'/pics/fd_logo.png');
 }
 
+
+//index 
 function indexMod(){
 	copy(GLPI_ROOT.'/index.php',GLPI_ROOT.'/index.php.bak');
 	copy('./src/index.php',GLPI_ROOT.'/index.php');
 }
 
-function indexDef(){
+function indexDef(){	
+	//rename(GLPI_ROOT.'/index.php',GLPI_ROOT.'/index.php-mod');
 	copy(GLPI_ROOT.'/index.php.bak',GLPI_ROOT.'/index.php');
 }
 
-
+//stats
 function staOff(){
 	rename(GLPI_MOD_DIR.'/scripts/stats.js', GLPI_MOD_DIR.'/scripts/stats.js.bak');
 }
@@ -39,13 +42,22 @@ function staOn(){
 	rename(GLPI_MOD_DIR.'/scripts/stats.js.bak', GLPI_MOD_DIR.'/scripts/stats.js');
 }
 
-
+//indicadores
 function indOff(){
 	rename(GLPI_MOD_DIR.'/scripts/ind.js', GLPI_MOD_DIR.'/scripts/ind.js.bak');		
 }
 
 function indOn(){
 	rename(GLPI_MOD_DIR.'/scripts/ind.js.bak', GLPI_MOD_DIR.'/scripts/ind.js');
+}
+
+//entity
+function EntOn(){
+	copy(GLPI_MOD_DIR.'/src/indexe.php', GLPI_ROOT.'/index.php');
+}
+
+function EntOff(){
+	copy(GLPI_MOD_DIR.'/src/index.php', GLPI_ROOT.'/index.php');
 }
 
 
@@ -68,29 +80,52 @@ if ($plugin->isActivated("mod")) {
 	echo "<table class='tab_cadrehov' border='0'>
 			<tbody>\n";										
 	echo "<tr>
-				<td colspan='5' width='100'>".__('Index Page').": </td></tr>\n";
+				<td colspan='5'>".__('Index Page').": </td></tr>\n";
 
 	echo "	<tr>
-					<td width='50'>".__('Default').":</td>
-					<td width='100'>
+					<td width='15'>".__('Default').":</td>
+					<td>
 					<form action='config.php?act=def' method='post'> ";
 				   	if ($action == 'def') {
         			 		indexDef();						
     				 	}
 	echo "			<input class='submit' type='submit' value='".__('Send')."' />";
 					Html::closeForm(); 
-	echo "	</td>\n";
+	echo "	</td><td></td></tr>\n";
 	
-	echo "	<td width='50'>".__('Mod').":</td>
-				<td width='200'>
+	echo "	<tr><td>".__('Mod').":</td>
+				<td >
 					<form action='config.php?act=mod' method='post'> ";
 				   	if ($action == 'mod') {
         			 		indexMod();						
     				 	}
-	echo "			<input class='submit' type='submit' value='".__('Send')."' />";
+	echo "		<input class='submit' type='submit' value='".__('Send')."' />";
+					Html::closeForm(); 
+	echo "	</td><td></td></tr>\n";
+			
+   echo "	<tr><td>"._n('Entity', 'Entities',2).": </td>\n";
+	echo "				
+				<td width='30'>
+					<form action='config.php?act=enton' method='post'> ";
+				   	if ($action == 'enton') {
+        			 		entOn();						
+    				 	}
+	echo "			<input class='submit' type='submit' value='"._x('button','Enable')."' />";
+					Html::closeForm(); 
+	echo "	</td>\n";
+	
+	echo "	<td width='200'>
+					<form action='config.php?act=entoff' method='post'> ";
+				   	if ($action == 'entoff') {
+        			 		entOff();						
+    				 	}
+	echo "			<input class='submit' type='submit' value='".__('Disable')."' />";
 					Html::closeForm(); 
 	echo "	</td>
 			</tr>\n";			
+					
+	echo "</tbody></table>\n";				
+				
 	echo "</tbody></table>\n";		
 
 
@@ -140,8 +175,7 @@ if ($plugin->isActivated("mod")) {
 	echo "			<input class='submit' type='submit' value='".__('Disable')."' />";
 					Html::closeForm(); 
 	echo "	</td>
-			</tr>\n";				
-	echo "</tbody></table>\n";		
+			</tr>\n";					
 
 	// Background
 	echo "<table class='tab_cadrehov' border='0'>

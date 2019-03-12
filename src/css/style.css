@@ -746,14 +746,14 @@ body.container {
 }
 
 .inputWidth{ width:170px;}
-.register-bottom {
+/*.register-bottom {
     background: none repeat scroll 0 0 #FCFCFC;
     border-top: 1px solid #DDDDDD;
     clear: both;
     fright: 20px;
     margin: 0 -19px;
     padding: 14px 55px;
-}
+}*/
 
 
 select {
@@ -767,6 +767,7 @@ select {
     display: inline-block;
     outline: medium none;
 }
+
 select[disabled] {
     background-color: #F2F4F8 !important;
     color: #C0CADD;
@@ -831,23 +832,6 @@ select.input-sm {
     margin: 1px 0 3px 5px;
 }
 }
-.limiterBox {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    -moz-box-sizing: content-box;
-    background-color: #E1E6EF;
-    border-color: -moz-use-text-color #E1E6EF #E1E6EF;
-    border-image: none;
-    border-right: 1px solid #E1E6EF;
-    border-style: none solid solid;
-    border-width: medium 1px 1px;
-    color: #FFFFFF;
-    font-size: 10px;
-    opacity: 0.9;
-    padding: 3px 6px;
-}
 
 div[data-role="editor-toolbar"] {
     -moz-user-select: none;
@@ -881,8 +865,9 @@ div[data-role="editor-toolbar"] {
 
 #text-login {
 	color:#fff;
+	margin-bottom: 10px;
+	
 	/*width: 530px;
-	margin-bottom: 6px;
 	margin-left: 10px;	*/
 }
 
@@ -948,9 +933,6 @@ div[data-role="editor-toolbar"] {
 
 
 /* new index*/
-.login {
-    margin-top:45px;
-}
 
 .set-logo {
     background:#fff;
@@ -998,6 +980,9 @@ div[data-role="editor-toolbar"] {
 	width: 70px;
 }
 
+.login {
+    margin-top:3%;
+}
 
 @media screen and (max-height: 600px) { 
 
@@ -1019,6 +1004,16 @@ div[data-role="editor-toolbar"] {
 
 }
 
+
+@media screen and (min-height: 890px) { 
+
+	.login {
+		margin-top:10%;
+	}
+
+}
+
+
 #login-body {
 	border-bottom-right-radius: 15px;
 	border-bottom-left-radius: 15px;
@@ -1028,3 +1023,47 @@ div[data-role="editor-toolbar"] {
 }
 
 /* new index*/
+
+#dropdown_auth1 {
+	width: 100%; 
+	height: 32px; 
+	color:#333;
+	padding-left: 10px;				
+}
+
+.input span {
+    position: absolute;
+    display: block;
+    color: #d4d4d4;
+    left: 10px;
+    top: 10px;
+    font-size: 20px;
+    text-shadow: #fff 0.1em 0.1em 0.2em !important;
+ }
+ 
+.input {
+   position: relative;
+   width: 100%;
+   margin: 10px auto;
+}
+select {
+    margin-top: 5px;
+}
+.input input {
+   width: 100%;
+   padding: 10px 5px 10px 40px;
+   display: block;
+   border: 1px solid #E1E6EF;
+   border-radius: 4px;
+   transition: 0.2s ease-out;
+   color: #000;
+}
+
+.input input:focus {
+   padding: 10px 5px 10px 10px;
+   outline: 0;
+   border-color: #C7DEFF;
+}
+
+
+

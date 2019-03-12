@@ -24,7 +24,7 @@ if(is_file(GLPI_ROOT.'/index.php.bak')) {
    rename(GLPI_ROOT.'/pics/fd_logo.png.bak', GLPI_ROOT.'/pics/fd_logo.png');
 	//copy('../../pics/fd_logo.png.bak','../../pics/fd_logo.png');
 	
-	exec('rm -r '.GLPI_ROOT.'/fonts');	
+	//exec('rm -r '.GLPI_ROOT.'/fonts');	
 	exec('rm '.GLPI_ROOT.'/pics/favicon.ico');
 	exec('rm '.GLPI_ROOT.'/pics/login_logo_glpi.png');
 	exec('rm '.GLPI_ROOT.'/pics/logo-glpi-login.png');
@@ -37,7 +37,13 @@ if(is_file(GLPI_ROOT.'/index.php.bak')) {
 	rename(GLPI_ROOT.'/pics/login_logo_glpi.png.bak', GLPI_ROOT.'/pics/login_logo_glpi.png');
 	rename(GLPI_ROOT.'/pics/logo-glpi-login.png.bak', GLPI_ROOT.'/pics/logo-glpi-login.png');
 	
-	//exec('service apache2 reload');
+	if(is_file(GLPI_ROOT.'/inc/search.class.php.bak')) {		
+		rename(GLPI_ROOT.'/inc/search.class.php.bak', GLPI_ROOT.'/inc/search.class.php');
+	}
+
+	if(is_file(GLPI_ROOT.'/inc/auth.class.php.bak')) {		
+		rename(GLPI_ROOT.'/inc/auth.class.php.bak', GLPI_ROOT.'/inc/auth.class.php');
+	}
 
 }
 

@@ -41,6 +41,7 @@ body {
    margin: 0;
    padding: 0;
    background:  #f8f7f3;
+   position: relative;
    height: auto;
    min-height: 100%;
 }
@@ -189,10 +190,6 @@ a.fa, a.fa:link {
 
 a:hover {
    color: black;
-}
-
-a.target-deleted {
-   text-decoration:line-through;
 }
 
 hr {
@@ -786,7 +783,7 @@ input.submit[type=reset] {
    }
 
    .layout_vsplit #page .glpi_tabs {
-      height: calc(100% - 50px);
+      height: 96%;
       position: relative;
       z-index:1;
    }
@@ -830,7 +827,7 @@ input.submit[type=reset] {
       overflow-y: auto;
       position: absolute;
       top: 0;
-      bottom: 33px;
+      bottom: 0;
    }
 
    .layout_classic #tabspanel + div.ui-tabs:not(.horizontal),
@@ -961,6 +958,8 @@ td { }
 
 .tab_cadre_fixe, .tab_cadre_fixehov {
    margin: 0px auto 5px auto;
+   /*border: 1px solid #cccccc;
+   background: #FFF;*/
    background: #f2f2f2;
    z-index:1;
    text-align: left;
@@ -986,6 +985,12 @@ td { }
 .ui-tabs .tab_cadre_fixehov {
    box-shadow: inherit;
 }
+
+
+/*.tab_cadre_fixe tr, .tab_cadre_fixe td { */
+/*	background-color: transparent; */
+/*}*/
+
 
 .tab_cadre_fixe img {
    vertical-align: middle;
@@ -1028,7 +1033,11 @@ td { }
    border-bottom: 1px solid #EEE;
    border-left: 0px !important;
 }
-
+/* to view link color must be the color of the palette
+.tab_cadre_fixehov th a, .tab_cadrehov th a {
+   color: #2E2E2E;
+}
+*/
 .tab_cadre_fixehov td, .tab_cadrehov td {
    padding: 8px 5px;
 }
@@ -1038,6 +1047,11 @@ td { }
 .tab_cadre td, .tab_cadre_fixehov td, .tab_cadrehov td {
    border-bottom:1px solid #EEE;
 }
+
+/* .tab_cadrehov tr:hover, .tab_cadre_fixehov tr:hover { */
+/*    background-color: #FFF4DF; */
+/*  } */
+
 
 /* Table Hover Effects */
 .tab_cadrehov th.headHover,
@@ -1097,6 +1111,7 @@ td { }
 }
 
 .tab_bg_3 {
+   /*background-color: #eeeeee;*/
    background-color: #e7e7e2;
 }
 
@@ -1143,6 +1158,8 @@ div.rss {
 
 td.numeric {
    text-align:right;
+/*   width:10%;*/
+/*   padding-right:4%;*/
 }
 
 td.htmltable_upper_separation_cell {
@@ -1202,6 +1219,7 @@ td.rotate {
 
 .actor-bloc {
    width: 29%;
+   /*float: left;*/
 }
 
 .actor_title, .actor-bloc {
@@ -1472,9 +1490,14 @@ img.picture_square {
 
 .calendrier {
    vertical-align:middle;
+   /*border: 1px solid #888888;
+   background-color:#eeeeee;
+   background:  url("../pics/fond_form.png") repeat-x; */
 }
 
 .calendrier:hover {
+   /*border: 1px inset #888888;
+   background-color:#ffffff;*/
    cursor:pointer;
 }
 
@@ -1877,13 +1900,12 @@ a.icon_nav_move:hover img {
 #planning_filter ul.filters > li .actor_icon {
    padding-bottom: 2px;
    vertical-align: middle;
-   font-size: 14px;
 }
 
 #planning_filter ul.filters > li label {
    padding-left: 4px;
    line-height: 16px;
-   width: 185px;
+   width: 200px;
    overflow: hidden;
    text-overflow: ellipsis;
    display: inline-block;
@@ -1931,9 +1953,6 @@ a.icon_nav_move:hover img {
    display: block;
 }
 
-#planning_filter ul.filters > li.group_users.expanded ul.group_listofusers > li label {
-   width: 175px;
-}
 #planning_filter .planning_link {
    text-align: center;
    display: block;
@@ -3348,14 +3367,17 @@ a.copyright {
 }
 
 .timeline_history .private {
-   padding-top: .5em;
-   color: #000000;
+   width: 30px;
+   float: right;
+   padding-top: 18px;
+   background: url(../pics/timeline/private.png) no-repeat center top;
+   color: #A2A2A2;
    font-size: .75em;
+   text-align: center;
    white-space: nowrap;
-   text-align: right;
 }
 .timeline_history .right .private {
-   text-align: left;
+   float: left;
 }
 
 .timeline_history .left .h_content.timeline_active {
@@ -3592,12 +3614,9 @@ a.copyright {
    background-repeat: no-repeat;
 }
 
+
 .timeline_history .approbation_separator {
    margin-bottom: 55px;
-}
-
-.timeline_history .item_content img {
-   max-width: 100%;
 }
 
 .assign_la {
@@ -3605,6 +3624,11 @@ a.copyright {
    white-space: nowrap;
    margin-top: 4px;
 }
+
+.displayed_content a .fa {
+   font-size: 1.5em;
+}
+
 
 .x-split-button {
   position: relative;
@@ -4420,8 +4444,8 @@ td.diff del {
 /** "slide panel" component */
 
 .slidepanel {
-   z-index: 1000;
-   position: fixed;
+   z-index: 100;
+   position: absolute;
    width: 30em;
    max-width: 40%;
    background: white;

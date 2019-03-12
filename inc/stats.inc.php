@@ -4,7 +4,7 @@ if (!defined('GLPI_ROOT')) {
    die("Sorry. You can't access directly to this file");
 }
 
-global $DB, $CFG_GLPI;
+global $DB, $CFG_GLPI; 
 
 $userid =  $_SESSION['glpiID'];
 $profid = $_SESSION['glpiactiveprofile']['id'];

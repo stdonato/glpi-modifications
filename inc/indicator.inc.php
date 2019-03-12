@@ -7,9 +7,13 @@ if (!defined('GLPI_ROOT')) {
 
 global $DB, $CFG_GLPI;
 
-echo Html::css($CFG_GLPI["root_doc"]."/css/font-awesome.css");
+//echo Html::css("css/bootstrap.css");
+//echo Html::css("css/css.css");
+echo Html::css("css/styles.css");
+//echo Html::script('lib/jquery/js/jquery.js');	   
+//echo Html::script('css/js/bootstrap.js');	   
+//echo Html::script('script.js');	
 
-//Stevenes Donato
 //satisfação por tecnico
 $query_sat = "
 SELECT glpi_users.id, avg( `glpi_ticketsatisfactions`.satisfaction ) AS media
@@ -125,13 +129,13 @@ echo "</li>\n";
 //late tickets
 echo "<li id='count' class='dropdown' style='font-size:12px;' title='". __('Late') ."'>
 		<a href='".$href_due."'>
-		<i style='vertical-align:bottom; font-size:15px;' class='fa fa-clock-o clockx'></i>
+		<i style='vertical-align:bottom; font-size:15px;' class='far fa-clock '></i>
 		<span class='label ".$label."' style='font-size:12px;'>". $due. "</span></a></li>\n";
 
 //tickets
 echo "<li id='count' class='dropdown' style='font-size:12px;' title='". _nx('ticket','Opened','Opened',2) ."'>
 		<a href='".$href_cham."'>
-		<i style='vertical-align:bottom; font-size:16px;' class='fa fa-ticket' ></i>
+		<i style='vertical-align:bottom; font-size:16px;' class='fa fa-ticket-alt' ></i>
 		<span class='label ".$label2."' style='font-size:12px;' >". $number. "</span></a></li>\n";
 
 //new ticket

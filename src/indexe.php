@@ -79,7 +79,10 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
    }
 
    Auth::checkAlternateAuthSystems(true, isset($_GET["redirect"])?$_GET["redirect"]:"");
-   
+
+   // Send UTF8 Headers
+   header("Content-Type: text/html; charset=UTF-8");
+
    $_SESSION['namfield'] = $namfield = uniqid('fielda');
    $_SESSION['pwdfield'] = $pwdfield = uniqid('fieldb');
    $_SESSION['rmbfield'] = $rmbfield = uniqid('fieldc');
@@ -92,14 +95,13 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
 <head>
 	<meta charset="utf-8">    
 	<title><?php echo __('GLPI - Authentication'); ?></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />
 	<link rel="icon" href="pics/favicon.ico" type="image/x-icon" />
-	<link href="css/bootstrap.css" rel="stylesheet">    
+	<link href="css/bootstrap.css" rel="stylesheet"> 
 	<link href="css/css.css" rel="stylesheet" type="text/css">
-	<link href="css/font-awesome.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
-	
+	<link href="css/style.css" rel="stylesheet"> 
+
 	<!--[if IE]>
   <script src="css/js/html5shiv.min.js"></script>
   <script src="css/js/respond.min.js"></script>
@@ -108,56 +110,39 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
 	
 	<script type='text/javascript'>      
 		window.onload = function() {
-		  			var input = document.getElementById("login_name").focus();
-			}      
+			
+			$(".input").focusin(function () {
+	   		$(this).find("span").animate({"opacity": "0"}, 200);
+			});
+	
+			$(".input").focusout(function () {
+				$(this).find("span").animate({"opacity": "1"}, 300);
+			});
+			
+			var input = document.getElementById("login_name").focus();
+		}      
 	</script>
-    
-	 <script src="lib/jquery/js/jquery-1.10.2.min.js"></script>
-    <script src="css/js/bootstrap.js"></script> 
 
-	<style type="text/css">
-		html, body {			
-			height: 100%;	
-			font-family: 'Open Sans', sans-serif;
-			font-weight: 100;	
-			color: #424a4d;	
-			background:  url("./pics/bg/back.jpg") repeat-x fixed;  
-			background-size:1925px 1200px;		
-			width: 100%; 
-		}
-			  
-		video#bgvid { 		
-			position: fixed; right: 0; bottom: 0;		
-			min-width: 100%; min-height: 100%;		
-			width: auto; height: auto; z-index: -900;		
-			background: url(cloud.png) no-repeat;		
-			background-size: cover; 		
-		}
-		
-		#dropdown_auth1 {
-			width: 100%; 
-			height: 32px; 
-			color:#333;
-			padding-left: 10px;				
-		}
-		
-	</style>      
-    
+   <?php   
+	echo Html::script('lib/jquery/js/jquery.js');	   
+	echo Html::script('css/js/bootstrap.js');	   
+	echo Html::script('script.js');	   
+   echo Html::script('lib/jqueryplugins/select2/js/select2.full.js');
+   echo Html::css('lib/jqueryplugins/select2/css/select2.css');
+	echo Html::css('lib/font-awesome/css/all.css');	   
+	?>
+
 </head>
 <body>
 
 <div class="container">  
-
-	<video autoplay loop poster="cloud.png" id="bgvid" style="z-index:-999; position:absolute;">
-		<!--- <source src="./pics/vids/bg.mp4x" type="video/mp4"> -->
-	</video>         
-
+      
     <div class="row login">
-		  	<div id='text-login' class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+		  	<div id='text-login' class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
 		  		<?php echo nl2br(Toolbox::unclean_html_cross_side_scripting_deep($CFG_GLPI['text_login'])); ?>  
 		  	</div>
 	      <div class="head col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-	      	<h3 class="text-center"><img class="logo-img" src="pics/logo.png" alt="" style="height:50px;"></h3>
+	      	<h3 class="text-center"><img class="logo-img" src="pics/logo.png" alt="" style="height:40px;"></h3>
 	      </div>
 
         <div id="login-body" class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 well">
@@ -178,46 +163,58 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
             
               <div class="form-group text-center">
                 <div class="logo">
-						<img src="pics/logo_big.png" alt="GLPI" class="logo2" height="150" />
+						<img src="pics/logo_big.png" alt="GLPI" class="logo2" height="110" />
                 </div>
               </div>
-              <div class="form-group">
-                  <input class="form-control input-md" name="<?php echo $namfield; ?>" id="login_name" required="required" placeholder="<?php echo __('User') ?>" type="text">
+              <div class="form-group input-md">
+	              <div class="input" id="login_input_name">
+	                  <input class="" name="<?php echo $namfield; ?>" id="login_name" required placeholder="<?php echo __('User') ?>" type="text" />
+	                  <span class="fa fa-user"></span>
+	              </div>
               </div>
-              <div class="form-group">
-                  <input class="form-control input-md" name="<?php echo $pwdfield; ?>" id="login_password" required="required" placeholder="<?php echo __('Password') ?>" type="password">
+              <div class="form-group input-md">
+	              <div class="input" id="login_input_password">
+	                  <input class="" name="<?php echo $pwdfield; ?>" id="login_password" required placeholder="<?php echo __('Password') ?>" type="password" />	                  
+	                  <span class="fa fa-lock"></span>
+	              </div>
               </div>
               
 				  <?php         
-               //entity select
-					$sql_ent = "SELECT COUNT(id) AS conta FROM glpi_entities";
-					$result_ent = $DB->query($sql_ent);
-					$conta = $DB->fetch_assoc($result_ent);
-				
-					if($conta['conta'] >= 2) {
-						
-						$sql_ent = "SELECT id, name FROM glpi_entities WHERE 1";
-						$result_ent = $DB->query($sql_ent);
-					
-						echo '<p class="login_input">
-						<select class="form-control" required name="active_entity" id="active_entity" style="width: 100%; height: 32px; color:#333" placeholder="'. __('Select the desired entity') .'">
-						<!--<option value="" disabled selected hidden></option>
-					   <option value=""></option>-->
-					   ';
-					   
-					   //$DB->data_seek($result_ent, 0);
-						while ($row = $DB->fetch_assoc($result_ent))		
-						{ 
-							echo "<option value=".$row['id'].">".$row['name']."</option>\n";		
-						}    
-					
-						echo '</select></p>'; 
-				   }    
+				  
 				   //entity select
-
+				   $seletor_ent = 1;
+				   
+				   if($seletor_ent == 1) {
+						$sql_ent = "SELECT COUNT(id) AS conta FROM glpi_entities";
+						$result_ent = $DB->query($sql_ent);
+						$conta = $DB->fetch_assoc($result_ent);
+					
+						if($conta['conta'] > 2) {
+							
+							$sql_ent = "SELECT id, name FROM glpi_entities WHERE id <> 0";
+							$result_ent = $DB->query($sql_ent);
+						
+							echo '<p class="login_input">
+							<select class="form-control" required name="active_entity" id="active_entity" border-color:#fff" >
+							<!--<option value="" disabled selected hidden style="color:#999 !important;"></option>-->
+						   <option value="">'. __('Select the desired entity') .'</option>
+						   ';
+						   	   
+							while ($row = $DB->fetch_assoc($result_ent))		
+							{ 
+								echo "<option value=".$row['id'].">".$row['name']."</option>\n";		
+							}    
+						
+							echo '</select></p>'; 
+					   }    
+					}
+				   //entity select
+   
 					 echo '<p class="login_input">';     
-					 // Add dropdown for auth (local, LDAPxxx, LDAPyyy, imap...)
-					 Auth::dropdownLogin();   
+				   // Add dropdown for auth (local, LDAPxxx, LDAPyyy, imap...)
+				   if ($CFG_GLPI['display_login_source']) {
+				      Auth::dropdownLogin();
+				   } 
 					 echo '</p>';
 				  ?>              
 				  <?php 
@@ -235,7 +232,7 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
               </div>
               <div class="form-group last-row">
 
-              <div class="out-linksx">
+              <div class="">
 				    <a href="#">
 					   <?php
 					    // Display FAQ is enable
@@ -248,9 +245,9 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
 				    </a>
 			    </div>
 	            <?php
-					    if ($CFG_GLPI["use_mailing"] && countElementsInTable('glpi_notifications', "`itemtype`='User' AND `event`='passwordforget' AND `is_active`=1")) {
-					      echo '<div class="pull-right"><a href="front/lostpassword.php?lostpassword=1">'.__('Forgotten password?').'</a></div>';
-					   }				            			          				
+						if ($CFG_GLPI["notifications_mailing"] && countElementsInTable('glpi_notifications', "`itemtype`='User' AND `event`='passwordforget' AND `is_active`=1")) {
+							echo '<div class="pull-right"><a href="front/lostpassword.php?lostpassword=1">'.__('Forgotten password?').'</a></div>';
+						} 				            			          				
 					?>  
                 
               </div>
@@ -267,7 +264,7 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
 	   if (GLPI_DEMO_MODE) {
 	      echo "<div class='center'>";
 	      Event::getCountLogin();
-	      echo "</div>";
+	      echo "</div>\n";
 	   }
 
 	   echo "<div id='footer-login'>\n";
@@ -278,6 +275,12 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
         
 </div>
 <script type="text/javascript">
+	$("#active_entityx").select2({
+    		placeholder: "Área de atendimento",
+    		allowClear: false
+	});
+
+//	$("#login_input_src").select2();
 
 </script>
 </body>
