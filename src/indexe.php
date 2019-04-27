@@ -124,6 +124,17 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
 	</script>
 
    <?php   
+
+   // CFG
+   echo Html::scriptBlock("
+      var CFG_GLPI  = {
+         'url_base': '".(isset($CFG_GLPI['url_base']) ? $CFG_GLPI["url_base"] : '')."',
+         'root_doc': '".$CFG_GLPI["root_doc"]."',
+      };
+   ");
+
+   echo Html::script("lib/fuzzy/fuzzy-min.js");   
+   
 	echo Html::script('lib/jquery/js/jquery.js');	   
 	echo Html::script('css/js/bootstrap.js');	   
 	echo Html::script('script.js');	   

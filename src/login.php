@@ -2,7 +2,7 @@
 /**
  * ---------------------------------------------------------------------
  * GLPI - Gestionnaire Libre de Parc Informatique
- * Copyright (C) 2015-2017 Teclib' and contributors.
+ * Copyright (C) 2015-2018 Teclib' and contributors.
  *
  * http://glpi-project.org
  *
@@ -30,10 +30,9 @@
  * ---------------------------------------------------------------------
  */
 
-/** @file
-* @brief
-* @since version 0.85 in front
-*/
+/**
+ * @since 0.85
+ */
 
 include ('../inc/includes.php');
 
@@ -57,11 +56,23 @@ if (isset($_SESSION['namfield']) && isset($_POST[$_SESSION['namfield']])) {
 }
 if (isset($_SESSION['pwdfield']) && isset($_POST[$_SESSION['pwdfield']])) {
    $password = Toolbox::unclean_cross_side_scripting_deep($_POST[$_SESSION['pwdfield']]);
+   
 } else {
    $password = '';
 }
+// Manage the selection of the auth source (local, LDAP id, MAIL id)
+if (isset($_POST['auth'])) {
+   $login_auth = $_POST['auth'];
+} else {
+   $login_auth = '';
+}
 
 $remember = isset($_SESSION['rmbfield']) && isset($_POST[$_SESSION['rmbfield']]) && $CFG_GLPI["login_remember_time"];
+
+//entity login
+$_POST["active_entity"] = rtrim($_POST["active_entity"], 'r');
+$_SESSION['glpiactive_entity'] = $_POST['active_entity'];
+$act_ent = $_POST['active_entity']; 
 
 // Redirect management
 $REDIRECT = "";
@@ -77,11 +88,15 @@ $auth = new Auth();
 
 // now we can continue with the process...
 if ($auth->login($login, $password, (isset($_REQUEST["noAUTO"])?$_REQUEST["noAUTO"]:false), $remember)) {
-   Auth::redirectIfAuthenticated();
+		
+   //Auth::redirectIfAuthenticated();
+   //entity login
+   Auth::redirectIfAuthenticated($act_ent);
+   
 } else {
    // we have done at least a good login? No, we exit.
    Html::nullHeader("Login", $CFG_GLPI["root_doc"] . '/index.php');
-   echo '<div class="center b"><span style="font-size:15px;">' . $auth->getErr() . '</span>';
+   echo '<div class="center b">' . $auth->getErr() . '<br><br>';
    // Logout whit noAUto to manage auto_login with errors
    echo '</div><br> <div class="center"><a style="font-size:16px;" class="vsubmit" href="' . $CFG_GLPI["root_doc"] . '/front/logout.php?noAUTO=1'.
          str_replace("?", "&", $REDIRECT).'">' .__('Log in again') . '</a></div>';

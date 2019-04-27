@@ -1,7 +1,7 @@
 /**
  * ---------------------------------------------------------------------
  * GLPI - Gestionnaire Libre de Parc Informatique
- * Copyright (C) 2015-2017 Teclib' and contributors.
+ * Copyright (C) 2015-2018 Teclib' and contributors.
  *
  * http://glpi-project.org
  *
@@ -31,11 +31,11 @@
 /* ===== LOGIN ===== */
 
 #firstboxlogin {
-   background-color: #E2392B;
+   background-color: #006573;
 }
 
 #logo_login {
-   background: url(../../pics/login_logo_glpi.png) center no-repeat, #A2291F;
+   background: url(../pics/login_logo_glpi.png) center no-repeat, #008B8D;
 }
 
 #display-login {
@@ -43,65 +43,94 @@
 }
 
 #text-login {
-   background-color: #A2291F;
+   background-color: #008B8D;
    color: #FFF;
 }
 
-
 /* ====== GENERAL ====== */
 
-a, a:link, .ui-widget-content a {
-   color: #C83226;
+a {
+   color: #006573;
+
+   &:link {
+      color: #006573;
+   }
+}
+
+.ui-widget-content a {
+   color: #006573;
 }
 
 .main_form tr.headerRow th {
-   color: #C83226;
+   color: #81BEAA;
 }
 
 /* ====== HEADER ====== */
 
 #header_top {
-   background-color: #A2291F;
+   background-color: #006573;
 }
 
 #c_preference a, #language_link > span {
-   color: #E9CAC8;
+   color: #81BEAA;
 }
 
 #c_recherche form #champRecherche input {
-   background-color: #621913;
-   color: #E9CAC8;
+   background-color: #005572;
+   color: #F4D4AD;
 }
 
 #c_menu {
-   background-color: #E2392B;
+   background-color: #008B8D;
 }
 
-ul#menu a.itemP, ul#menu a.itemP1 {
-   color: #FFF;
-}
+ul {
+   &#menu {
+      a {
+         &.itemP, &.itemP1 {
+            color: #fff;
+         }
+      }
 
-ul#menu > li.active,
-ul.ssmenu li.active {
-   background-color: #A2291F;
-}
+      ul li a {
+         color: #006573;
+      }
 
-ul#menu > li.active > a,
-ul#menu ul.ssmenu li.active > a {
-   color: #FFF;
-}
+      > li.active {
+         background-color: #006573;
+      }
+   }
 
-ul#menu > li:hover {
-   background-color: #EF3C2D;
-}
+   &.ssmenu li.active {
+      background-color: #006573;
+   }
 
-ul#menu ul li a:hover {
-   background: #EB3B2C;
-   color: #FFF;
-}
+   &#menu {
+      > li.active > a {
+         color: #FFF;
+      }
 
-ul#menu ul li a {
-   color: #C83226;
+      ul {
+         &.ssmenu li.active > a {
+            color: #FFF;
+         }
+
+         li a:hover {
+            background: #81BEAA;
+            color: #000;
+         }
+      }
+
+      > li:hover {
+         background-color: #81BEAA;
+         color: #000;
+
+         > a {
+            background-color: #81BEAA;
+            color: #000;
+         }
+      }
+   }
 }
 
 #c_recherche form #champRecherche button {
@@ -110,78 +139,93 @@ ul#menu ul li a {
 
 /* ====== BUTTONS ====== */
 
-input.submit,
-span.vsubmit, a.vsubmit,
-.ui-widget-content span.vsubmit, a.vsubmit,
-#BackToTop {
-   color: #FFF;
-   background-color: #FB6356;
+input.submit, span.vsubmit, a.vsubmit, .ui-widget-content span.vsubmit, a.vsubmit, #BackToTop {
+   color: #816644;
+   background-color: #F4D4AD;
 }
+
 .vsubmit a {
-   color: #FFF;
+   color: #816644;
    text-decoration: underline;
 }
 
-input.submit:hover,
-a.vsubmit:hover,
-#BackToTop:hover {
-   background-color: #FB6356;
+input.submit:hover, a.vsubmit:hover, #BackToTop:hover {
+   background-color: #F4D4AD;
 }
 
 /* ====== Breadcrumb ====== */
 
 .breadcrumb_item:nth-of-type(3) {
-   background-color: #FB6356;
-}
-.breadcrumb_item:nth-of-type(3) a {
-   color: #FFF !important;
-}
-.breadcrumb_item:nth-of-type(3):after {
-   border-left-color: #FB6356;
+   background-color: #F4D4AD;
+
+   a {
+      color: #816644 !important;
+   }
+
+   &:after {
+      border-left-color: #F4D4AD;
+   }
 }
 
 /* Primary color elements (white on blue BG) designed to be overridden from palettes */
 /* Colors are same as #c_menu */
+
 .primary-bg {
-   background: #E2392B;
+   background: #008B8D;
 }
+
 .primary-bg-inverse {
    background: white;
 }
 
-.primary-fg, .primary-fg:hover {
+.primary-fg {
    color: white;
+
+   &:hover {
+      color: white;
+   }
 }
 
-.primary-fg-inverse, .primary-fg-inverse:hover {
-   color: #E2392B;
+.primary-fg-inverse {
+   color: #008B8D;
+
+   &:hover {
+      color: #008B8D;
+   }
 }
 
-#c_preference a.debugon,
-#c_preference a.debugon:hover {
-   color: black!important;
+#c_preference a.debugon {
+   color: black !important;
+
+   &:hover {
+      color: black !important;
+   }
 }
 
-#show_all_menu dt a {
-   color:white;
+#show_all_menu {
+   dt a {
+      color: white;
+
+      &:hover {
+         background: #81BEAA;
+      }
+   }
+
+   a {
+      color: #006573;
+
+      &:hover {
+         background-color: #008B8D;
+         color: black;
+      }
+   }
 }
 
-#show_all_menu dt a:hover {
-   background: #EF3C2D;
-}
 
-#show_all_menu a {
-   color: #C83226;
-}
-
-#show_all_menu a:hover {
-   background-color: #E2392B;
-   color: white;
-}
 
 /*  Stevenes Donato */
 .tab_cadrehov th, .tab_cadre th {
-	background-color: #A2291F !important;
+	background-color: #006573 !important;
 	color: #fff !important;
 	border-left: 1px solid #fff;
 	border-right: 1px solid #fff;

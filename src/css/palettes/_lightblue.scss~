@@ -1,7 +1,7 @@
 /**
  * ---------------------------------------------------------------------
  * GLPI - Gestionnaire Libre de Parc Informatique
- * Copyright (C) 2015-2017 Teclib' and contributors.
+ * Copyright (C) 2015-2018 Teclib' and contributors.
  *
  * http://glpi-project.org
  *
@@ -35,7 +35,7 @@
 }
 
 #logo_login {
-   background: url(../../pics/login_logo_glpi.png) center no-repeat, #5ABCFF;
+   background: url(../pics/login_logo_glpi.png) center no-repeat, #5ABCFF;
 }
 
 #display-login {
@@ -47,11 +47,18 @@
    color: #FFF;
 }
 
-
 /* ====== GENERAL ====== */
 
-a, a:link, .ui-widget-content a {
-    color : #006573;
+a {
+   color: #006573;
+
+   &:link {
+      color: #006573;
+   }
+}
+
+.ui-widget-content a {
+   color: #006573;
 }
 
 .main_form tr.headerRow th {
@@ -77,32 +84,53 @@ a, a:link, .ui-widget-content a {
    background-color: #5ABCFF;
 }
 
-ul#menu a.itemP, ul#menu a.itemP1 {
-   color: #fff;
-}
+ul {
+   &#menu {
+      a {
+         &.itemP, &.itemP1 {
+            color: #fff;
+         }
+      }
 
-ul#menu ul li a {
-   color: #3891cd;
-}
+      ul li a {
+         color: #3891cd;
+      }
 
-ul#menu > li.active ,
-ul.ssmenu li.active {
-   background-color: #2da9ff;
-}
-ul#menu > li.active > a,
-ul#menu ul.ssmenu li.active > a {
-   color: #FFF;
-}
+      > li.active {
+         background-color: #2da9ff;
+      }
+   }
 
-ul#menu > li:hover,
-ul#menu > li:hover > a {
-   background-color: #41B1FF;
-   color: #fff;
-}
+   &.ssmenu li.active {
+      background-color: #2da9ff;
+   }
 
-ul#menu ul li a:hover {
-   background: #55B2FF;
-   color: #fff;
+   &#menu {
+      > li.active > a {
+         color: #FFF;
+      }
+
+      ul {
+         &.ssmenu li.active > a {
+            color: #FFF;
+         }
+
+         li a:hover {
+            background: #55B2FF;
+            color: #fff;
+         }
+      }
+
+      > li:hover {
+         background-color: #41B1FF;
+         color: #fff;
+
+         > a {
+            background-color: #41B1FF;
+            color: #fff;
+         }
+      }
+   }
 }
 
 #c_recherche form #champRecherche button {
@@ -115,17 +143,21 @@ input.submit {
    background-color: #41B1FF;
    color: #fff;
    border: 1px solid #88c9ff;
+
+   &:hover {
+      background-color: #92ceff;
+   }
 }
-input.submit:hover {
-   background-color: #92ceff;
-}
+
 a.vsubmit {
    background-color: #41B1FF;
    color: #fff;
+
+   &:hover {
+      background-color: #92ceff;
+   }
 }
-a.vsubmit:hover {
-   background-color: #92ceff;
-}
+
 #BackToTop {
    background-color: #55B2FF;
    color: #fff;
@@ -135,54 +167,69 @@ a.vsubmit:hover {
 
 #c_ssmenu2 .breadcrumb_item:nth-of-type(3) {
    background-color: #2da9ff;
-}
-#c_ssmenu2 .breadcrumb_item:nth-of-type(3) a {
-   color: #fff;
-}
-#c_ssmenu2 .breadcrumb_item:nth-of-type(3):after {
-   border-left-color: #2da9ff;
+
+   a {
+      color: #fff;
+   }
+
+   &:after {
+      border-left-color: #2da9ff;
+   }
 }
 
 /* Primary color elements (white on blue BG) designed to be overridden from palettes */
 /* Colors are same as #c_menu */
+
 .primary-bg {
    background: #5ABCFF;
 }
+
 .primary-bg-inverse {
    background: white;
 }
 
-.primary-fg, .primary-fg:hover {
+.primary-fg {
    color: white;
+
+   &:hover {
+      color: white;
+   }
 }
 
-.primary-fg-inverse, .primary-fg-inverse:hover {
+.primary-fg-inverse {
    color: #5ABCFF;
+
+   &:hover {
+      color: #5ABCFF;
+   }
 }
 
-#c_preference a.debugon,
-#c_preference a.debugon:hover {
-   color: black!important;
+#c_preference a.debugon {
+   color: black !important;
+
+   &:hover {
+      color: black !important;
+   }
 }
 
-#show_all_menu dt a {
-   color:white;
+#show_all_menu {
+   dt a {
+      color: white;
+
+      &:hover {
+         background: #41B1FF;
+      }
+   }
+
+   a {
+      color: #3891cd;
+
+      &:hover {
+         background-color: #5ABCFF;
+         color: white;
+      }
+   }
 }
-
-#show_all_menu dt a:hover {
-   background: #41B1FF;
-}
-
-#show_all_menu a {
-   color: #3891cd;
-}
-
-#show_all_menu a:hover {
-   background-color: #5ABCFF;
-   color: white;
-}
-
-
 
 /*  Stevenes Donato */
 .tab_cadrehov th, .tab_cadre th {

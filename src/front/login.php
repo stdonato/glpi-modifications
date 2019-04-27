@@ -70,14 +70,9 @@ if (isset($_POST['auth'])) {
 $remember = isset($_SESSION['rmbfield']) && isset($_POST[$_SESSION['rmbfield']]) && $CFG_GLPI["login_remember_time"];
 
 //entity login
-if(isset($_POST["active_entity"])) {
-	$_POST["active_entity"] = rtrim($_POST["active_entity"], 'r');
-	$_SESSION['glpiactive_entity'] = $_POST['active_entity'];
-	$act_ent = $_POST['active_entity']; 
-}
-else {
-	$act_ent = "";
-}
+$_POST["active_entity"] = rtrim($_POST["active_entity"], 'r');
+$_SESSION['glpiactive_entity'] = $_POST['active_entity'];
+$act_ent = $_POST['active_entity']; 
 
 // Redirect management
 $REDIRECT = "";

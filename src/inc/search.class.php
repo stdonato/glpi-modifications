@@ -528,7 +528,7 @@ class Search {
     * @return nothing
    **/
    static function constructSQL(array &$data) {
-      global $CFG_GLPI;
+      global $CFG_GLPI, $DB;
 
       if (!isset($data['itemtype'])) {
          return false;
@@ -845,9 +845,19 @@ class Search {
                   $tmpquery.= $GROUPBY.
                               $HAVING;
 
-                  $tmpquery = str_replace($CFG_GLPI["union_search_type"][$data['itemtype']],
-                                          $ctable, $tmpquery);
-
+                  // Replace 'asset_types' by itemtype table name
+                  $tmpquery = str_replace(
+                     $CFG_GLPI["union_search_type"][$data['itemtype']],
+                     $ctable,
+                     $tmpquery
+                  );
+                  // Replace 'AllAssets' by itemtype
+                  // Use quoted value to prevent replacement of AllAssets in column identifiers
+                  $tmpquery = str_replace(
+                     $DB->quoteValue('AllAssets'),
+                     $DB->quoteValue($ctype),
+                     $tmpquery
+                  );
                } else {// Ref table case
                   $reftable = getTableForItemType($data['itemtype']);
 
@@ -970,17 +980,16 @@ class Search {
                if (strlen($sub_sql)) {
                   $sql .= "$LINK ($sub_sql)";
                }
-            } else if (isset($searchopt[$criterion['field']]["usehaving"])) {
+            } else if (isset($searchopt[$criterion['field']]["usehaving"])
+                       || ($meta && "AND NOT" === $criterion['link'])) {
                if (!$is_having) {
                   // the having part will be managed in a second pass
                   continue;
                }
 
-               // Find key
-               $item_num = array_search($criterion['field'], $data['tocompute']);
                $new_having = self::addHaving($LINK, $NOT, $itemtype,
                                              $criterion['field'], $criterion['searchtype'],
-                                             $criterion['value'], $meta);
+                                             $criterion['value']);
                if ($new_having !== false) {
                   $sql .= $new_having;
                }
@@ -1038,6 +1047,7 @@ class Search {
                   $items[$val2] = $searchopt[$val2];
                }
             }
+            $view_sql = "";
             foreach ($items as $key2 => $val2) {
                if (isset($val2['nosearch']) && $val2['nosearch']) {
                   continue;
@@ -1054,13 +1064,13 @@ class Search {
                                                  $criterion['searchtype'], $criterion['value'], $meta);
                      if ($new_where !== false) {
                         $first2  = false;
-                        $sql .=  $new_where;
+                        $view_sql .=  $new_where;
                      }
                   }
                }
             }
-            if (strlen($sql)) {
-               $sql = " ($sql) ";
+            if (strlen($view_sql)) {
+               $sql.= " ($view_sql) ";
             }
          }
       }
@@ -1833,23 +1843,25 @@ class Search {
             }
          }
       } else {
-         echo "<div class='center pager_controls'>";
-         if (null == $item || $item->maybeLocated()) {
-            $map_link = "<input type='checkbox' name='as_map' id='as_map' value='1'";
-            if ($data['search']['as_map'] == 1) {
-               $map_link .= " checked='checked'";
+         if (!isset($_GET['_in_modal'])) {
+            echo "<div class='center pager_controls'>";
+            if (null == $item || $item->maybeLocated()) {
+               $map_link = "<input type='checkbox' name='as_map' id='as_map' value='1'";
+               if ($data['search']['as_map'] == 1) {
+                  $map_link .= " checked='checked'";
+               }
+               $map_link .= "/>";
+               $map_link .= "<label for='as_map'><span title='".__s('Show as map')."' class='pointer fa fa-globe-americas'
+                  onClick=\"toogle('as_map','','','');
+                              document.forms['searchform".$data["itemtype"]."'].submit();\"></span></label>";
+               echo $map_link;
             }
-            $map_link .= "/>";
-            $map_link .= "<label for='as_map'><span title='".__s('Show as map')."' class='pointer fa fa-globe-americas'
-               onClick=\"toogle('as_map','','','');
-                           document.forms['searchform".$data["itemtype"]."'].submit();\"></span></label>";
-            echo $map_link;
-         }
 
-         if ($item !== null && $item->maybeDeleted()) {
-            echo self::isDeletedSwitch($data['search']['is_deleted'], $data['itemtype']);
+            if ($item !== null && $item->maybeDeleted()) {
+               echo self::isDeletedSwitch($data['search']['is_deleted'], $data['itemtype']);
+            }
+            echo "</div>";
          }
-         echo "</div>";
          echo self::showError($data['display_type']);
       }
    }
@@ -3022,11 +3034,10 @@ JAVASCRIPT;
     * @param integer $ID             ID of the item to search
     * @param string  $searchtype     search type ('contains' or 'equals')
     * @param string  $val            value search
-    * @param string  $meta           is it a meta item ?
     *
     * @return select string
    **/
-   static function addHaving($LINK, $NOT, $itemtype, $ID, $searchtype, $val, $meta) {
+   static function addHaving($LINK, $NOT, $itemtype, $ID, $searchtype, $val) {
 
       $searchopt  = &self::getOptions($itemtype);
       if (!isset($searchopt[$ID]['table'])) {
@@ -3126,10 +3137,6 @@ JAVASCRIPT;
    **/
    static function addOrderBy($itemtype, $ID, $order) {
       global $CFG_GLPI;
-
-      if ($itemtype == 'AllAssets') {
-         return '';
-      }
 
       // Security test for order
       if ($order != "ASC") {
@@ -3609,13 +3616,13 @@ JAVASCRIPT;
                   $TRANS = '';
                   if (Session::haveTranslations(getItemTypeForTable($table), $field)) {
                       $TRANS = "GROUP_CONCAT(DISTINCT CONCAT(IFNULL($tocomputetrans, '".self::NULLVALUE."'),
-                                                             '".self::SHORTSEP."',$tocomputeid)
+                                                             '".self::SHORTSEP."',$tocomputeid) ORDER BY $tocomputeid
                                              SEPARATOR '".self::LONGSEP."')
                                      AS `".$NAME."_trans`, ";
                   }
 
                   return " GROUP_CONCAT(DISTINCT CONCAT($tocompute, '".self::SHORTSEP."' ,
-                                                        `$table$addtable`.`id`)
+                                                        `$table$addtable`.`id`) ORDER BY `$table$addtable`.`id`
                                         SEPARATOR '".self::LONGSEP."') AS `".$NAME."`,
                            $TRANS
                            $ADDITONALFIELDS";
@@ -3635,12 +3642,12 @@ JAVASCRIPT;
          $TRANS = '';
          if (Session::haveTranslations(getItemTypeForTable($table), $field)) {
             $TRANS = "GROUP_CONCAT(DISTINCT CONCAT(IFNULL($tocomputetrans, '".self::NULLVALUE."'),
-                                                   '".self::SHORTSEP."',$tocomputeid) SEPARATOR '".self::LONGSEP."')
+                                                   '".self::SHORTSEP."',$tocomputeid) ORDER BY $tocomputeid SEPARATOR '".self::LONGSEP."')
                                   AS `".$NAME."_trans`, ";
 
          }
          return " GROUP_CONCAT(DISTINCT CONCAT(IFNULL($tocompute, '".self::NULLVALUE."'),
-                                               '".self::SHORTSEP."',$tocomputeid) SEPARATOR '".self::LONGSEP."')
+                                               '".self::SHORTSEP."',$tocomputeid) ORDER BY $tocomputeid SEPARATOR '".self::LONGSEP."')
                               AS `".$NAME."`,
                   $TRANS
                   $ADDITONALFIELDS";
@@ -6209,7 +6216,7 @@ JAVASCRIPT;
                      $out .= $so['emptylabel'];
                   } else {
                      // Trans field exists
-                     if (isset($data[$ID][$k]['trans']) && !empty($data[p][$k]['trans'])) {
+                     if (isset($data[$ID][$k]['trans']) && !empty($data[$ID][$k]['trans'])) {
                         $out .=  Dropdown::getValueWithUnit($data[$ID][$k]['trans'], $unit);
                      } else {
                         $out .= Dropdown::getValueWithUnit($data[$ID][$k]['name'], $unit);

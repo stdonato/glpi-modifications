@@ -31,11 +31,11 @@
 /* ===== LOGIN ===== */
 
 #firstboxlogin {
-   background-color: #8EC547;
+   background-color: #E2392B;
 }
 
 #logo_login {
-   background: url(../../pics/login_logo_glpi.png) center no-repeat, #459436;
+   background: url(../pics/login_logo_glpi.png) center no-repeat, #A2291F;
 }
 
 #display-login {
@@ -43,116 +43,177 @@
 }
 
 #text-login {
-   background-color: #459436;
+   background-color: #A2291F;
    color: #FFF;
 }
 
-
-#boxlogin #forget,
-#footer-login a  {
-   color: #459436;
-}
-
-
 /* ====== GENERAL ====== */
 
-a, a:link, .ui-widget-content a {
-    color: #459436;
+a {
+   color: #C83226;
+
+   &:link {
+      color: #C83226;
+   }
 }
 
-.main_form tr.headerRow th {
-   color: #93CC4A;
+.ui-widget-content a, .main_form tr.headerRow th {
+   color: #C83226;
 }
-
 
 /* ====== HEADER ====== */
 
 #header_top {
-   background-color: #459436;
+   background-color: #A2291F;
 }
 
 #c_preference a, #language_link > span {
-   color: #D9FFA8;
+   color: #E9CAC8;
 }
 
 #c_recherche form #champRecherche input {
-   background-color: #365731;
-   color: #D9FFA8;
+   background-color: #621913;
+   color: #E9CAC8;
 }
 
 #c_menu {
-   background-color: #8EC547;
+   background-color: #E2392B;
 }
 
-ul#menu a.itemP, ul#menu a.itemP1 {
-   color: #fff;
-}
+ul {
+   &#menu {
+      a {
+         &.itemP, &.itemP1 {
+            color: #FFF;
+         }
+      }
 
-ul#menu > li.active,
-ul.ssmenu li.active {
-   background-color: #459436;
-}
-ul#menu > li.active > a,
-ul#menu ul.ssmenu li.active > a {
-   color: #D9FFA8;
-}
+      > li.active {
+         background-color: #A2291F;
+      }
+   }
 
-ul#menu > li:hover {
-   background-color: #93CC4A;
-}
+   &.ssmenu li.active {
+      background-color: #A2291F;
+   }
 
-ul#menu ul li a:hover {
-   background: #93CC4A;
-   color: #D9FFA8;
-}
+   &#menu {
+      > li.active > a {
+         color: #FFF;
+      }
 
-ul#menu ul li a {
-   color: #459436;
+      ul {
+         &.ssmenu li.active > a {
+            color: #FFF;
+         }
+
+         li a {
+            &:hover {
+               background: #EB3B2C;
+               color: #FFF;
+            }
+
+            color: #C83226;
+         }
+      }
+
+      > li:hover {
+         background-color: #EF3C2D;
+      }
+   }
 }
 
 #c_recherche form #champRecherche button {
    background-color: white;
 }
 
-/* ====== PANEL COMPONENTS ====== */
+/* ====== BUTTONS ====== */
 
-input.submit,
-span.vsubmit, a.vsubmit,
-.ui-widget-content span.vsubmit {
-   background-color: #8ec547;
-   color: #fff;
+input.submit, span.vsubmit, a.vsubmit, .ui-widget-content span.vsubmit, a.vsubmit, #BackToTop {
+   color: #FFF;
+   background-color: #FB6356;
+}
+
+.vsubmit a {
+   color: #FFF;
+   text-decoration: underline;
+}
+
+input.submit:hover, a.vsubmit:hover, #BackToTop:hover {
+   background-color: #FB6356;
+}
+
+/* ====== Breadcrumb ====== */
+
+.breadcrumb_item:nth-of-type(3) {
+   background-color: #FB6356;
+
+   a {
+      color: #FFF !important;
+   }
+
+   &:after {
+      border-left-color: #FB6356;
+   }
 }
 
 /* Primary color elements (white on blue BG) designed to be overridden from palettes */
 /* Colors are same as #c_menu */
+
 .primary-bg {
-   background: #8EC547;
+   background: #E2392B;
 }
+
 .primary-bg-inverse {
-   background: #D9FFA8;
+   background: white;
 }
 
-.primary-fg, .primary-fg:hover {
-   color: #D9FFA8;
+.primary-fg {
+   color: white;
+
+   &:hover {
+      color: white;
+   }
 }
 
-.primary-fg-inverse, .primary-fg-inverse:hover {
-   color: #8EC547;
+.primary-fg-inverse {
+   color: #E2392B;
+
+   &:hover {
+      color: #E2392B;
+   }
 }
 
-#show_all_menu dt a:hover {
-   background: #93CC4A;
+#c_preference a.debugon {
+   color: black !important;
+
+   &:hover {
+      color: black !important;
+   }
 }
 
-#show_all_menu a:hover {
-   background-color: #8EC547;
-   color: #D9FFA8;
+#show_all_menu {
+   dt a {
+      color: white;
+
+      &:hover {
+         background: #EF3C2D;
+      }
+   }
+
+   a {
+      color: #C83226;
+
+      &:hover {
+         background-color: #E2392B;
+         color: white;
+      }
+   }
 }
 
 /*  Stevenes Donato */
-
 .tab_cadrehov th, .tab_cadre th {
-	background-color: #459436 !important;
+	background-color: #A2291F !important;
 	color: #fff !important;
 	border-left: 1px solid #fff;
 	border-right: 1px solid #fff;
