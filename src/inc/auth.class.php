@@ -1204,9 +1204,44 @@ class Auth extends CommonGLPI {
     * @return void|boolean nothing if redirect is true, else false
     */
 // Stevenes Donato
-   //static function redirectIfAuthenticated($redirect = null) {
+   static function redirectIfAuthenticated($redirect = null) {
+        global $CFG_GLPI;
+
+      if (!Session::getLoginUserID()) {
+         return false;
+      }
+
+      if (!$redirect) {
+         if (isset($_POST['redirect']) && (strlen($_POST['redirect']) > 0)) {
+            $redirect = $_POST['redirect'];
+         } else if (isset($_GET['redirect']) && strlen($_GET['redirect']) > 0) {
+            $redirect = $_GET['redirect'];
+         }
+      }
+
+      //Direct redirect
+      if ($redirect) {
+         Toolbox::manageRedirect($redirect);
+      }
+
+      // Redirect to Command Central if not post-only
+      if (Session::getCurrentInterface() == "helpdesk") {
+         if ($_SESSION['glpiactiveprofile']['create_ticket_on_login']) {
+            Html::redirect($CFG_GLPI['root_doc'] . "/front/helpdesk.public.php?create_ticket=1");
+         }
+         Html::redirect($CFG_GLPI['root_doc'] . "/front/helpdesk.public.php");
+
+      } else {
+         if ($_SESSION['glpiactiveprofile']['create_ticket_on_login']) {
+            Html::redirect(Ticket::getFormURL());
+         }
+         Html::redirect($CFG_GLPI['root_doc'] . "/front/central.php");
+      }
+   
+   }
+   	
    //entidade no login   	
-   static function redirectIfAuthenticated($ent,$redirect = null) {
+   static function redirectIfAuthenticatedEnt($ent,$redirect = null) {
 // Stevenes Donato
 
       global $CFG_GLPI;

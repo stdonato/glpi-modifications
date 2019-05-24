@@ -70,9 +70,14 @@ if (isset($_POST['auth'])) {
 $remember = isset($_SESSION['rmbfield']) && isset($_POST[$_SESSION['rmbfield']]) && $CFG_GLPI["login_remember_time"];
 
 //entity login
-$_POST["active_entity"] = rtrim($_POST["active_entity"], 'r');
-$_SESSION['glpiactive_entity'] = $_POST['active_entity'];
-$act_ent = $_POST['active_entity']; 
+if(isset($_POST["active_entity"])) {
+	$_POST["active_entity"] = rtrim($_POST["active_entity"], 'r');
+	$_SESSION['glpiactive_entity'] = $_POST['active_entity'];
+	$act_ent = $_POST['active_entity']; 
+}
+else {
+	$act_ent = "";
+}	
 
 // Redirect management
 $REDIRECT = "";
@@ -85,13 +90,16 @@ if (isset($_POST['redirect']) && (strlen($_POST['redirect']) > 0)) {
 
 $auth = new Auth();
 
-
 // now we can continue with the process...
 if ($auth->login($login, $password, (isset($_REQUEST["noAUTO"])?$_REQUEST["noAUTO"]:false), $remember)) {
 		
    //Auth::redirectIfAuthenticated();
    //entity login
-   Auth::redirectIfAuthenticated($act_ent);
+   if($act_ent != "") {
+      Auth::redirectIfAuthenticatedEnt($act_ent);
+   } else {
+      Auth::redirectIfAuthenticated();
+   }	
    
 } else {
    // we have done at least a good login? No, we exit.
