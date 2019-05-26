@@ -133,9 +133,9 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
       };
    ");
 
-   echo Html::script("lib/fuzzy/fuzzy-min.js");   
-   
 	echo Html::script('lib/jquery/js/jquery.js');	   
+
+   echo Html::script("lib/fuzzy/fuzzy-min.js");
 	echo Html::script('css/js/bootstrap.js');	   
 	echo Html::script('script.js');	   
    echo Html::script('lib/jqueryplugins/select2/js/select2.full.js');
@@ -255,8 +255,15 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
 					   ?>
 				    </a>
 			    </div>
-	            <?php
-						if ($CFG_GLPI["notifications_mailing"] && countElementsInTable('glpi_notifications', "`itemtype`='User' AND `event`='passwordforget' AND `is_active`=1")) {
+	            <?php						
+						if ($CFG_GLPI["notifications_mailing"]
+				      && countElementsInTable(
+				         'glpi_notifications', [
+				         'itemtype'  => 'User',
+				         'event'     => 'passwordforget',
+				         'is_active' => 1
+				         ])
+				      ) {
 							echo '<div class="pull-right"><a href="front/lostpassword.php?lostpassword=1">'.__('Forgotten password?').'</a></div>';
 						} 				            			          				
 					?>  
