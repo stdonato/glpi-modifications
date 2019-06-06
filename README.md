@@ -7,9 +7,9 @@
 - Tickets indicators for users
 - Add your logo at login page
 
-Installs like any other GLPI plugin.
-
 ONLY FOR LINUX SERVERS.
 
-- Before install remove any previous versions of plugin.
+- Use only the compatible version for your GLPI
+- Before install new versions, remove any previous versions of plugin.
+
 
