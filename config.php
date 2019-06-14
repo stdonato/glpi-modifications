@@ -2,6 +2,7 @@
 
 include ("../../inc/includes.php");
 include ("../../inc/config.php");
+Session::checkLoginUser();
 
 if (!defined("GLPI_MOD_DIR")) {
    define("GLPI_MOD_DIR", GLPI_ROOT."/plugins/mod");
