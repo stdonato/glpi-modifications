@@ -55,17 +55,6 @@ else {
   $getuser = "AND glpi_users.id IN = " . $userid ."" ;
 }
 
-/*var_dump($profid);
-echo "</br>";
-var_dump($glpient);
-echo "</br>";
-var_dump($activeent);
-echo "</br>";
-var_dump($ent);
-echo "</br>";
-var_dump($entities);
-echo "</br>";
-var_dump($getuser);*/
 
 //total de chamados abertos
 $sql_geral =	"SELECT COUNT(glpi_tickets.id) as total

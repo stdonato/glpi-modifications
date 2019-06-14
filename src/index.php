@@ -75,7 +75,7 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
    }
 
    if (!isset($_GET["noAUTO"])) {
-      Auth::redirectIfAuthenticated();
+      Auth::redirectIfAuthenticated(isset($_GET["redirect"])?$_GET["redirect"]:"");
    }
 
    Auth::checkAlternateAuthSystems(true, isset($_GET["redirect"])?$_GET["redirect"]:"");
