@@ -34,9 +34,9 @@ function plugin_version_mod(){
 
 function plugin_mod_check_prerequisites(){
      if (GLPI_VERSION >= '9.4.2'){
-	     	if(file_exists('/etc/hosts')){      	
+	     	//if(file_exists('/etc/hosts')){      	
 	         return true;
-	     	}
+	     	//}
          
      } else {
          echo "GLPI version not compatible need 9.4.2";
