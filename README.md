@@ -7,9 +7,7 @@
 - Tickets indicators for users
 - Add your logo at login page
 
-ONLY FOR LINUX SERVERS.
-
 - Use only the compatible version with your GLPI 
 - Before install new versions, remove any previous versions of plugin.
 
-
+Tested on PHP 7.1
