@@ -26,7 +26,7 @@ function plugin_version_mod(){
 
 	return array('name'			   => __('GLPI Modifications'),
 					'version' 			=> '1.4.0',
-					'author'			   => '<a href="mailto:stevenesdonato@gmail.com"> Stevenes Donato </b> </a>',
+					'author'			   => '<a href="https://github.com/stdonato/glpi-modifications"> Stevenes Donato </b> </a>',
 					'license'		 	=> 'GPLv2+',
 					'homepage'			=> 'https://github.com/stdonato/glpi-modifications',
 					'minGlpiVersion'	=> '9.4.3');
