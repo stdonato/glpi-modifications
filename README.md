@@ -8,6 +8,7 @@
 - Add your logo at login page
 
 - Use only the compatible version with your GLPI 
-- Before install new versions, remove any previous versions of plugin.
+- Before install new versions, remove any previous versions of plugin
+- After unzip, rename folder to "mod"
 
 
