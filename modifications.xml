@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <root>
+   <name>Modifications</name>
+   <key>modifications</key>
+   <state>stable</state>
+   <logo>https://sourceforge.net/p/glpithemes/icon?1487789111</logo>
+   <description>
+      <short>
+         <en>Modifications for login, home and menu bar. Only for Linux servers.</en>
+         <lang></lang>
+      </short>
+      <long>
+         <en>Modifications for login, home and menu bar. Only for Linux servers.</en>
+         <lang></lang>
+      </long>
+   </description>
+   <homepage>https://github.com/stdonato/glpi-modifications/</homepage>
+   <download>https://github.com/stdonato/glpi-modifications/</download>
+   <issues>https://github.com/stdonato/glpi-modifications/</issues>
+   <readme>https://github.com/stdonato/glpi-modifications/</readme>
+   <authors>
+      <author>Stevenes Donato</author>
+   </authors>
+   <versions>
+      <version>
+         <num>1.5.0</num>
+         <compatibility>9.4.4</compatibility>
+      </version>
+   </versions>
+   <langs>
+      <lang>en_US</lang>
+      <lang>pt_BR</lang>
+   </langs>
+   <license>GPL v2+</license>
+   <tags>
+      <en>
+         <tag>theme</tag>
+      </en>
+      <lang>
+         <tag>login</tag>
+      </lang>
+   </tags>
+   <screenshots>
+      <screenshot>https://a.fsdn.com/con/app/proj/glpithemes/screenshots/login-911.png/1</screenshot>
+      <screenshot>https://a.fsdn.com/con/app/proj/glpithemes/screenshots/GLPI-MODS-0901.png/1</screenshot>    
+      <screenshot>https://a.fsdn.com/con/app/proj/glpithemes/screenshots/Plugin_Mod-Config.png/1</screenshot>    
+        
+   </screenshots>         
+</root>
