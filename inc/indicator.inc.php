@@ -7,12 +7,7 @@ if (!defined('GLPI_ROOT')) {
 
 global $DB, $CFG_GLPI;
 
-//echo Html::css("css/bootstrap.css");
-//echo Html::css("css/css.css");
 echo Html::css("css/styles.css");
-//echo Html::script('lib/jquery/js/jquery.js');	   
-//echo Html::script('css/js/bootstrap.js');	   
-//echo Html::script('script.js');	
 
 //satisfação por tecnico
 $query_sat = "
@@ -106,11 +101,10 @@ if($due == 0)  { $label = 'label-success'; }
 if($due >= 1 ) { $label = 'label-danger'; }
 
 if($number <= 0)  { $label2 = 'label-success'; }
- 		if($number >= 1  && $number <= 3) { $label2 = 'label-primary'; }
+if($number >= 1  && $number <= 3) { $label2 = 'label-primary'; }
 if($number >= 4  && $number <= 5) { $label2 = 'label-warning'; }
 if($number > 5) { $label2 = 'label-danger'; }	     
-
-
+							
 echo "
 <style>
 	@media screen and (max-width: 750px) {
@@ -120,7 +114,8 @@ echo "
 
 
 //tasks
-echo "<ul><li id='count' class='' style='font-size:12px;' title='". _n('Ticket task','Ticket tasks',2) ."'>";
+echo "<ul>\n";
+echo "<li id='count' class='' style='font-size:12px;' title='". _n('Ticket task','Ticket tasks',2) ."'>\n";
 echo "<a href='".$href_tasks."' class='' data-toggle='dropdown' role='button' aria-expanded='false'>
 		<i class='fa fa-tasks' style='vertical-align:bottom; font-size:15px;'></i> 
 		<span class='label ".$label3."' style='font-size:12px;' >". $num_tasks. "</span></a>\n";
@@ -145,7 +140,30 @@ echo "<a href='".$CFG_GLPI["root_doc"]."/front/ticket.form.php' style='margin-to
 		<span class='label label-primary' style='font-size:12px;' >
 			<i class='fa fa-plus fa-plus-mod' style='vertical-align:bottom; font-size:15px;'></i> 
 		</span></a>\n";
-echo "</li></ul>\n";
+echo "</li>\n";
+
+
+//check new version
+/*if(Session::haveRight("profile", READ)){		
+	
+	$ver = explode(" ",implode(" ",plugin_version_mod())); 																																																
+	$urlv = "https://sourceforge.net/p/glpithemes/screenshot/".$ver[11]."-".$ver[2].".png";
+	$headers = get_headers($urlv, 1);	
+	
+	if($headers[0] != '') {
+		//if ($headers[0] == 'HTTP/1.1 200 OK') { 
+		if ($headers[0] == 'HTTP/1.0 404 Not Found' || $headers[0] == 'HTTP/1.1 404 Not Found') {
+			$newversion = "<a href='https://sourceforge.net/projects/glpithemes/files' target='_blank' style='margin-right: 12px; color:#fff;' class='blink_me'><i class='fa fa-refresh'></i><span>&nbsp;&nbsp;".  __('New version'). " ". __( 'avaliable'). " </span></a>";		
+	
+			echo "<li id='count' class='' style='font-size:12px;' title='Plugin Modifications'>";
+			echo $newversion;
+			echo "</li>\n";	
+		
+		}
+	}
+}*/
+
+echo "</ul>\n";
       
      
 ?>     

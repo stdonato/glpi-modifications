@@ -134,30 +134,30 @@ ul {
 /* ====== BUTTONS ====== */
 
 input.submit, span.vsubmit, a.vsubmit, .ui-widget-content span.vsubmit, a.vsubmit, #BackToTop {
-   color: #F2B265;
-   background-color: #8B4D34;
+   color: #F2B265 !important;
+   background-color: #8B4D34 !important;
 }
 
 .vsubmit a {
-   color: #F2B265;
+   color: #F2B265 !important;
    text-decoration: underline;
 }
 
 input.submit:hover, a.vsubmit:hover, #BackToTop:hover {
-   background-color: #8B4D34;
+   background-color: #8B4D34 !important;
 }
 
 /* ====== Breadcrumb ====== */
 
 .breadcrumb_item:nth-of-type(3) {
-   background-color: #8B4D34;
+   background-color: #8B4D34 !important;
 
    a {
       color: #F2B265 !important;
    }
 
    &:after {
-      border-left-color: #8B4D34;
+      border-left-color: #8B4D34 !important;
    }
 }
 

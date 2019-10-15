@@ -130,30 +130,30 @@ ul {
 /* ====== BUTTONS ====== */
 
 input.submit, span.vsubmit, a.vsubmit, .ui-widget-content span.vsubmit, a.vsubmit, #BackToTop {
-   color: #FFF;
-   background-color: #FB6356;
+   color: #FFF !important;
+   background-color: #FB6356 !important;
 }
 
 .vsubmit a {
-   color: #FFF;
+   color: #FFF !important;
    text-decoration: underline;
 }
 
 input.submit:hover, a.vsubmit:hover, #BackToTop:hover {
-   background-color: #FB6356;
+   background-color: #FB6356 !important;
 }
 
 /* ====== Breadcrumb ====== */
 
 .breadcrumb_item:nth-of-type(3) {
-   background-color: #FB6356;
+   background-color: #FB6356 !important;
 
    a {
       color: #FFF !important;
    }
 
    &:after {
-      border-left-color: #FB6356;
+      border-left-color: #FB6356 !important;
    }
 }
 
@@ -161,7 +161,7 @@ input.submit:hover, a.vsubmit:hover, #BackToTop:hover {
 /* Colors are same as #c_menu */
 
 .primary-bg {
-   background: #E2392B;
+   background: #E2392B !important;
 }
 
 .primary-bg-inverse {

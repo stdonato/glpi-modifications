@@ -27,6 +27,10 @@ function deleteAll($str) {
     }
 }
 
+//call our function
+//deleteAll('temporary_files');
+
+
 if(is_file(GLPI_ROOT.'/index.php.bak')) {
 		
 	//exec('rm '.GLPI_ROOT.'/index.php');
@@ -37,14 +41,17 @@ if(is_file(GLPI_ROOT.'/index.php.bak')) {
 	array_map('unlink', array_filter((array) glob("/front/login.php")));
 	rename(GLPI_ROOT.'/front/login.php.bak', GLPI_ROOT.'/front/login.php');
 	
+//	exec('rm '.GLPI_ROOT.'/script.js');
 	array_map('unlink', array_filter((array) glob("/script.js")));
 	rename(GLPI_ROOT.'/script.js.bak', GLPI_ROOT.'/script.js');
 	
+//	exec('rm -r '.GLPI_ROOT.'/css');
 	deleteAll(GLPI_ROOT.'/css');
 	rename(GLPI_ROOT.'/css.bak', GLPI_ROOT.'/css');
 	
+//	exec('rm '.GLPI_ROOT.'/pics/fd_logo.png');
 	array_map('unlink', array_filter((array) glob(GLPI_ROOT.'/pics/fd_logo.png')));
-        rename(GLPI_ROOT.'/pics/fd_logo.png.bak', GLPI_ROOT.'/pics/fd_logo.png');
+   rename(GLPI_ROOT.'/pics/fd_logo.png.bak', GLPI_ROOT.'/pics/fd_logo.png');
 	//copy('../../pics/fd_logo.png.bak','../../pics/fd_logo.png');
 	
 	//exec('rm -r '.GLPI_ROOT.'/fonts');	
@@ -68,5 +75,8 @@ if(is_file(GLPI_ROOT.'/index.php.bak')) {
 	if(is_file(GLPI_ROOT.'/inc/auth.class.php.bak')) {		
 		rename(GLPI_ROOT.'/inc/auth.class.php.bak', GLPI_ROOT.'/inc/auth.class.php');
 	}
+
 }
+
+
 ?>

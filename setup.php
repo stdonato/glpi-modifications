@@ -25,21 +25,21 @@ function plugin_version_mod(){
 	global $DB, $LANG;
 
 	return array('name'			   => __('GLPI Modifications'),
-					'version' 			=> '1.4.0',
-					'author'			   => '<a href="https://github.com/stdonato/glpi-modifications"> Stevenes Donato </b> </a>',
+					'version' 			=> '1.5.1',
+					'author'			   => '<a href="mailto:stevenesdonato@gmail.com"> Stevenes Donato </b> </a>',
 					'license'		 	=> 'GPLv2+',
 					'homepage'			=> 'https://github.com/stdonato/glpi-modifications',
-					'minGlpiVersion'	=> '9.4.3');
+					'minGlpiVersion'	=> '9.4.4');
 }
 
 function plugin_mod_check_prerequisites(){
-     if (GLPI_VERSION >= '9.4.3'){
+     if (GLPI_VERSION >= '9.4.4'){
 	     	//if(file_exists('/etc/hosts')){      	
 	         return true;
 	     	//}
          
      } else {
-         echo "GLPI version not compatible need 9.4.3";
+         echo "GLPI version not compatible need 9.4.4";
      }
 }
 

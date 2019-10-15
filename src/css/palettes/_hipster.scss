@@ -141,21 +141,21 @@ ul {
 /* ====== BUTTONS ====== */
 
 input.submit {
-   background-color: #d6665a;
-   color: #fff;
-   border: 1px solid #e08c83;
+   background-color: #d6665a !important;
+   color: #fff !important;
+   border: 1px solid #e08c83 !important; 
 
    &:hover {
-      background-color: #d6665a;
+      background-color: #d6665a !important;
    }
 }
 
 a.vsubmit {
-   background-color: #d6665a;
-   color: #fff;
+   background-color: #d6665a !important;
+   color: #fff !important;
 
    &:hover {
-      background-color: #d6665a;
+      background-color: #d6665a !important;
    }
 }
 

@@ -141,21 +141,21 @@ ul {
 /* ====== BUTTONS ====== */
 
 input.submit {
-   background-color: #FF5131;
-   color: #fff;
+   background-color: #FF5131 !important;
+   color: #fff !important;
    border: 1px solid #FF674A;
 
    &:hover {
-      background-color: #ff7c64;
+      background-color: #ff7c64 !important;
    }
 }
 
 a.vsubmit {
-   background-color: #FF5131;
-   color: #fff;
+   background-color: #FF5131 !important;
+   color: #fff !important;
 
    &:hover {
-      background-color: #ff7c64;
+      background-color: #ff7c64 !important;
    }
 }
 
@@ -167,14 +167,14 @@ a.vsubmit {
 /* ====== BREADCRUMB ====== */
 
 #c_ssmenu2 .breadcrumb_item:nth-of-type(3) {
-   background-color: #FF5131;
+   background-color: #FF5131 !important;
 
    a {
       color: #fff;
    }
 
    &:after {
-      border-left-color: #FF5131;
+      border-left-color: #FF5131 !important;
    }
 }
 

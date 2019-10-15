@@ -5652,3 +5652,8 @@ textarea {
 .select2-container--default .select2-selection--single .select2-selection__rendered {   
     line-height: 20px !important;
 }
+
+
+#tab_stats  > tbody > tr > td  {
+	text-align: center !important;
+}

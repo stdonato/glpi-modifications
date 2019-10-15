@@ -877,8 +877,6 @@ class Auth extends CommonGLPI {
             //Cookie session path
             $cookie_path = ini_get('session.cookie_path');
 
-            //$hash = Auth::getPasswordHash($token);
-
             $data = json_encode([
                 $this->user->fields['id'],
                 $token,
@@ -1205,7 +1203,7 @@ class Auth extends CommonGLPI {
     */
 // Stevenes Donato
    static function redirectIfAuthenticated($redirect = null) {
-        global $CFG_GLPI;
+      global $CFG_GLPI;
 
       if (!Session::getLoginUserID()) {
          return false;

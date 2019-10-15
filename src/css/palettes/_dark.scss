@@ -134,30 +134,30 @@ ul {
 /* ====== BUTTONS ====== */
 
 input.submit, span.vsubmit, a.vsubmit, .ui-widget-content span.vsubmit, a.vsubmit, #BackToTop {
-   color: #fff;
-   background-color: #585957;
+   color: #fff !important;
+   background-color: #585957 !important;
 }
 
 .vsubmit a {
-   color: #fff;
+   color: #fff !important;
    text-decoration: underline;
 }
 
 input.submit:hover, a.vsubmit:hover, #BackToTop:hover {
-   background-color: #585957;
+   background-color: #585957 !important;
 }
 
 /* ====== Breadcrumb ====== */
 
 .breadcrumb_item:nth-of-type(3) {
-   background-color: #585957;
+   background-color: #585957 !important;
 
    a {
       color: #fff !important;
    }
 
    &:after {
-      border-left-color: #585957;
+      border-left-color: #585957 !important;
    }
 }
 
@@ -165,7 +165,7 @@ input.submit:hover, a.vsubmit:hover, #BackToTop:hover {
 /* Colors are same as #c_menu */
 
 .primary-bg {
-   background: #585957;
+   background: #585957 !important;
 }
 
 .primary-bg-inverse {
@@ -181,10 +181,10 @@ input.submit:hover, a.vsubmit:hover, #BackToTop:hover {
 }
 
 .primary-fg-inverse {
-   color: #585957;
+   color: #585957 !important;
 
    &:hover {
-      color: #585957;
+      color: #585957 !important;
    }
 }
 

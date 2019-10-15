@@ -134,7 +134,7 @@ class Search {
          array_pop($criteria);
          $criteria[] = [
             'link'         => 'AND',
-            'field'        => ($itemtype == 'Location') ? 1 : ($itemtype == 'Ticket') ? 83 : 3,
+            'field'        => ($itemtype == 'Location') ? 1 : (($itemtype == 'Ticket') ? 83 : 3),
             'searchtype'   => 'equals',
             'value'        => 'CURLOCATION'
          ];
@@ -978,7 +978,11 @@ class Search {
             if (isset($criterion['criteria']) && count($criterion['criteria'])) {
                $sub_sql = self::constructCriteriaSQL($criterion['criteria'], $data, $searchopt, $is_having);
                if (strlen($sub_sql)) {
-                  $sql .= "$LINK ($sub_sql)";
+                  if ($NOT) {
+                     $sql .= "$LINK NOT($sub_sql)";
+                  } else {
+                     $sql .= "$LINK ($sub_sql)";
+                  }
                }
             } else if (isset($searchopt[$criterion['field']]["usehaving"])
                        || ($meta && "AND NOT" === $criterion['link'])) {
@@ -3116,7 +3120,7 @@ JAVASCRIPT;
       }
 
       if ($searchtype == "notcontains") {
-         $nott = !$nott;
+         $NOT = !$NOT;
       }
 
       return self::makeTextCriteria("`$NAME`", $val, $NOT, $LINK);
@@ -5194,7 +5198,7 @@ JAVASCRIPT;
          case "glpi_tickets.time_to_own" :
          case "glpi_tickets.internal_time_to_own" :
             if (!in_array($ID, [151, 158, 181, 186])
-                && !empty($data[$ID][0]['name'])
+                && !empty($data[$NAME][0]['name'])
                 && ($data[$NAME][0]['status'] != CommonITILObject::WAITING)
                 && ($data[$NAME][0]['name'] < $_SESSION['glpi_currenttime'])) {
                $out = " style=\"background-color: #cf9b9b\" ";
@@ -5242,6 +5246,13 @@ JAVASCRIPT;
          if (isset($searchopt[$ID]['addobjectparams'])
              && $searchopt[$ID]['addobjectparams']) {
             $oparams = $searchopt[$ID]['addobjectparams'];
+         }
+
+         // Search option may not exists in subtype
+         // This is the case for "Inventory number" for a Software listed from ReservationItem search
+         $subtype_so = &self::getOptions($data["TYPE"]);
+         if (!array_key_exists($ID, $subtype_so)) {
+            return '';
          }
 
          return self::giveItem($data["TYPE"], $ID, $data, $meta, $oparams, $itemtype);

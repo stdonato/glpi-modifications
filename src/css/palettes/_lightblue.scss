@@ -140,9 +140,9 @@ ul {
 /* ====== BUTTONS ====== */
 
 input.submit {
-   background-color: #41B1FF;
-   color: #fff;
-   border: 1px solid #88c9ff;
+   background-color: #41B1FF !important;
+   color: #fff !important;
+   border: 1px solid #88c9ff !important;
 
    &:hover {
       background-color: #92ceff;
@@ -150,30 +150,30 @@ input.submit {
 }
 
 a.vsubmit {
-   background-color: #41B1FF;
-   color: #fff;
+   background-color: #41B1FF !important;
+   color: #fff !important;
 
    &:hover {
-      background-color: #92ceff;
+      background-color: #92ceff !important;
    }
 }
 
 #BackToTop {
    background-color: #55B2FF;
-   color: #fff;
+   color: #fff !important;
 }
 
 /* ====== BREADCRUMB ====== */
 
 #c_ssmenu2 .breadcrumb_item:nth-of-type(3) {
-   background-color: #2da9ff;
+   background-color: #2da9ff !important;
 
    a {
-      color: #fff;
+      color: #fff !important;
    }
 
    &:after {
-      border-left-color: #2da9ff;
+      border-left-color: #2da9ff !important;
    }
 }
 
