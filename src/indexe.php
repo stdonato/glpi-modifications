@@ -278,6 +278,11 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
     </div>
 
 	<?php
+		  echo "<div id='display-login'>";
+		  Plugin::doHook('display_login');
+		  echo "</div>";
+
+	  
 	  echo "</div>"; // end contenu login
 	
 	   if (GLPI_DEMO_MODE) {
@@ -286,10 +291,7 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
 	      echo "</div>\n";
 	   }
 
-	   echo "<div id='footer-login'>\n";
-	   echo "<a href='http://glpi-project.org/' title='Powered By Teclib' style='color:#fff;'>";
-	   echo "GLPI Copyright (C) 2015 - ".date('Y')." Teclib and contributors - Copyright (C) 2003 - 2015 INDEPNET Development Team";
-	   echo "</a></div>\n"; 
+	   echo "<div id='footer-login' class='home'>" . Html::getCopyrightMessage(false) . "</div>";
 	?>       
         
 </div>
