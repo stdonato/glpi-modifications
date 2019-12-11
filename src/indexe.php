@@ -278,6 +278,11 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
     </div>
 
 	<?php
+		  echo "<div id='display-login'>";
+		  Plugin::doHook('display_login');
+		  echo "</div>";
+
+	  
 	  echo "</div>"; // end contenu login
 	
 	   if (GLPI_DEMO_MODE) {
