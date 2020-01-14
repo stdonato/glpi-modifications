@@ -146,25 +146,32 @@ $href_solv = $CFG_GLPI["root_doc"]."/front/ticket.php?is_deleted=0&criteria[0][f
 
 echo '
 <style>
+	.status_name {
+		font-size:14pt; 
+		color:#333;
+	}
+	@media screen and (max-width: 1600px) {
+	  .status_name {font-size:12pt;}
+	}  
 	@media screen and (max-width: 767px) {
 	  #tab_stats { display:none; }
 	}
 </style>
 
-  <table id="tab_stats" style="font-family: \'Helvetica Neue\',Helvetica,Arial,sans-serif; text-align:center; margin:auto; width:90%; margin-bottom:20px; background:#fff; border: 1px solid #ddd; table-layout: fixed;" >
+  <table id="tab_stats" style="font-family: \'Helvetica Neue\',Helvetica,Arial,sans-serif; text-align:center; margin:auto; width:94%; margin-bottom:20px; background:#fff; border: 1px solid #ddd; table-layout: fixed;" >
 	  	<tr>
-	      <td style="border-right: 1px solid #ddd; padding: 5px;"><span><a href='.$href_cham .' style="font-size:22pt; color:#337AB7;">' . $total_geral . '</a> </span> </p><span style="color:#333; font-size:14pt;"> '. _nx('ticket','Opened','Opened',2) . '</span></td>
-	      <td style="border-right: 1px solid #ddd;"><span><a href='. $href_new .' style="font-size:22pt; color:#555;">' . $total_new . '</a> </span> </p><span style="color:#333; font-size:14pt;"> '. Ticket::getStatus(1) .' </span></td>
-	      <td style="border-right: 1px solid #ddd;"><span><a href='. $href_ass .' style="font-size:22pt; color:#49BF8F;">' . $total_ass . '</a></span> </p><span style="color:#333; font-size:14pt;"> '. Ticket::getStatus(2)  . ' </span></td>';
+	      <td style="border-right: 1px solid #ddd; padding: 5px;"><span><a href='.$href_cham .' style="font-size:22pt; color:#337AB7;">' . $total_geral . '</a> </span> </p><span class="status_name"> '. _nx('ticket','Opened','Opened',2) . '</span></td>
+	      <td style="border-right: 1px solid #ddd;"><span><a href='. $href_new .' style="font-size:22pt; color:#555;">' . $total_new . '</a> </span> </p><span class="status_name"> '. Ticket::getStatus(1) .' </span></td>
+	      <td style="border-right: 1px solid #ddd;"><span><a href='. $href_ass .' style="font-size:22pt; color:#49BF8F;">' . $total_ass . '</a></span> </p><span class="status_name"> '. Ticket::getStatus(2)  . ' </span></td>';
 
 // show planned ticket, if exists
 if($total_plan > 0) {	      
-	      echo '<td style="border-right: 1px solid #ddd;"><span><a href='. $href_plan .' style="font-size:22pt; color:#1b2f62;">' . $total_plan . '</a> </span> </p><span style="color:#333; font-size:14pt;"> '. Ticket::getStatus(3) .' </span></td>';
+	      echo '<td style="border-right: 1px solid #ddd;"><span><a href='. $href_plan .' style="font-size:22pt; color:#1b2f62;">' . $total_plan . '</a> </span> </p><span class="status_name"> '. Ticket::getStatus(3) .' </span></td>';
 }
 echo '
-	      <td style="border-right: 1px solid #ddd;"><span><a href='. $href_pend .' style="font-size:22pt; color:#FFA830;">' . $total_pend . '</a> </span> </p><span style="color:#333; font-size:14pt;"> '. Ticket::getStatus(4) .' </span></td>
-	      <td style="border-right: 1px solid #ddd;"><span><a href='. $href_due .' style="font-size:22pt; color:#D9534F;">' . $total_due . '</a>  </span> </p><span style="color:#333; font-size:14pt;"> '. __('Late') . ' </span></td>
-	      <td style="border-right: 0px solid #ddd;"><span><a href='. $href_solv .' style="font-size:22pt; color:#000;">' . $total_solv . '</a></span> </p><span style="color:#333; font-size:14pt;"> '. Ticket::getStatus(5) .'</span></td>
+	      <td style="border-right: 1px solid #ddd;"><span><a href='. $href_pend .' style="font-size:22pt; color:#FFA830;">' . $total_pend . '</a> </span> </p><span class="status_name"> '. Ticket::getStatus(4) .' </span></td>
+	      <td style="border-right: 1px solid #ddd;"><span><a href='. $href_due .' style="font-size:22pt; color:#D9534F;">' . $total_due . '</a>  </span> </p><span class="status_name"> '. __('Late') . ' </span></td>
+	      <td style="border-right: 0px solid #ddd;"><span><a href='. $href_solv .' style="font-size:22pt; color:#000;">' . $total_solv . '</a></span> </p><span class="status_name"> '. Ticket::getStatus(5) .'</span></td>
 	  </tr>
   </table>';
 
