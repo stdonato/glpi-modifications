@@ -277,11 +277,6 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
     </div>
 
 	<?php
-		  echo "<div id='display-login'>";
-		  Plugin::doHook('display_login');
-		  echo "</div>";
-
-	  
 	  echo "</div>"; // end contenu login
 	
 	   if (GLPI_DEMO_MODE) {
@@ -290,7 +285,7 @@ if (!file_exists(GLPI_CONFIG_DIR . "/config_db.php")) {
 	      echo "</div>\n";
 	   }
 
-	   echo "<div id='footer-login' class='home'>" . Html::getCopyrightMessage(false) . "</div>";
+     echo "<div id='footer-login' class='home'>" . Html::getCopyrightMessage(false) . "</div>";
 	?>       
         
 </div>
