@@ -7,7 +7,7 @@ if (!defined('GLPI_ROOT')) {
 
 global $DB, $CFG_GLPI;
 
-echo Html::css("css/styles.css");
+echo Html::css("css/styles.min.css");
 
 //satisfação por tecnico
 $query_sat = "
