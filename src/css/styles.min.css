@@ -1363,6 +1363,7 @@ td.rotate {
 .tooltip {
    font-size: 11px !important;
 }
+
 .tooltip:contains(img) {
    white-space: nowrap;
    height: 100px !important;
@@ -3763,7 +3764,7 @@ a.copyright {
    width: 145px;
    color: #999;
 }
-
+/*
 .dates_timelines .dot {
    position: absolute;
    left: 156px;
@@ -3779,7 +3780,8 @@ a.copyright {
    font-family: 'FontAwesome';
    padding-left: 2px;
 }
-
+*/
+/*
 .dates_timelines .now,
 .dates_timelines .now time {
    font-weight: bold;
@@ -3822,7 +3824,7 @@ a.copyright {
 }
 .dates_timelines .end .dot:before {
    content: '\f024';
-}
+}*/
 
 .dates_timelines label {
    position: absolute;
@@ -5653,7 +5655,7 @@ textarea {
     line-height: 20px !important;
 }
 
-
 #tab_stats  > tbody > tr > td  {
 	text-align: center !important;
 }
+
