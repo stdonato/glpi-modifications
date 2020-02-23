@@ -72,7 +72,7 @@ if ($plugin->isActivated("mod")) {
 
    Html::header('Plugin Modifications', "", "plugins", "mod");	      
 		  
-	echo "<div class='center' style='height:900px; width:80%; background:#fff; margin:auto; float:none;'><br><p>\n";
+	echo "<div class='center' style='height:1100px; width:80%; background:#fff; margin:auto; float:none;'><br><p>\n";
    echo "<div id='config' class='center here ui-tabs-panel'>
    			<br><p>
         		<span style='color:blue; font-weight:bold; font-size:13pt;'>".__('Plugin Modifications')."</span> <br><br><p>\n";
@@ -237,7 +237,7 @@ if ($plugin->isActivated("mod")) {
 			</tr>\n";
 			
 	echo "<tr>				
-				<td width='210' style='background:#f2f2f2;'> <img src='../../pics/fd_logo.png?v=".Date("Y.m.d.G.i.s")." height='100' /> </td>
+				<td width='210' style='background:#c9c9c9;'> <img src='../../pics/fd_logo.png?v=".Date("Y.m.d.G.i.s")." height='100' /> </td>
 				<td width='100'>".__('Upload').":</td>
 				<td>
 					<form action='uplogo_int.php' method='post' enctype='multipart/form-data' class='fileupload'>

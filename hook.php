@@ -43,7 +43,7 @@ function plugin_mod_install(){
 
 function plugin_mod_uninstall(){
 		
-	include('uninstall.php');
+	//include('uninstall.php');
 	return true;
 }
 

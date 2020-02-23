@@ -51,9 +51,13 @@ function plugin_init_mod() {
 	   $PLUGIN_HOOKS['config_page']['mod'] = 'config.php';
 	   $PLUGIN_HOOKS['add_javascript']['mod'][] = "scripts/stats.js";
 	   $PLUGIN_HOOKS['add_javascript']['mod'][] = "scripts/ind.js";
+ 	   include('install.php');                     
  	}  
  	
- 	include('install.php');                     
+ 	if ($plugin->isInstalled('mod') && !$plugin->isActivated('mod')) {
+		 	include('uninstall.php'); 
+ 	}
+ 	
 }
 
 
