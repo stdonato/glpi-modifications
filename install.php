@@ -64,7 +64,7 @@ else {
 	copy(GLPI_MOD_DIR.'/src/css/ie.css', GLPI_ROOT.'/css/ie.css');
 	copy(GLPI_MOD_DIR.'/src/css/style.css', GLPI_ROOT.'/css/style.css');
 	copy(GLPI_MOD_DIR.'/src/css/styles.css', GLPI_ROOT.'/css/styles.css');
-	copy(GLPI_MOD_DIR.'/src/pics/logo_big-def.png', GLPI_ROOT.'/pics/');
+	copy(GLPI_MOD_DIR.'/src/pics/logo_big-def.png', GLPI_ROOT.'/pics/logo_big-def.png')
 	recurse_copy(GLPI_MOD_DIR.'/src/pics/bg/', GLPI_ROOT.'/pics/bg/');
    recurse_copy(GLPI_MOD_DIR.'/src/css/js/', GLPI_ROOT.'/css/js/');	
 }	
