@@ -19,7 +19,7 @@ if ($plugin->isActivated("mod")) {
 			
 			$info = getimagesize($_FILES['photo']['tmp_name']);
 
-			if($_FILES['photo']['size'] > (10240000)) //can't be larger than 1 MB
+			if($_FILES['photo']['size'] > (10240000)) //can't be larger than 10 MB
 			{
 				$valid_file = false;
 				$message = 'Oops!  Your file\'s size is to large.';
