@@ -124,7 +124,7 @@ echo "</li>\n";
 //late tickets
 echo "<li id='count' class='dropdown' style='font-size:12px;' title='". __('Late') ."'>
 		<a href='".$href_due."'>
-		<i style='vertical-align:bottom; font-size:15px;' class='far fa-clock '></i>
+		<i style='vertical-align:bottom; font-size:15px;' class='fa fa-clock '></i>
 		<span class='label ".$label."' style='font-size:12px;'>". $due. "</span></a></li>\n";
 
 //tickets
