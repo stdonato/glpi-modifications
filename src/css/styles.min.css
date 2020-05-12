@@ -184,7 +184,8 @@ a.fa, a.fa:link {
    font-size: inherit;
    font-weight: normal;
 }
-#page a.fa, #page a.fa:link, a .fa {
+
+#page a.fa-clock, #page a.fa:link, a .fa-clock, a .fa-tasks, a .fa-ticket-alt, a .fa-plus-mod  {
    color: #fff;
 }
 
