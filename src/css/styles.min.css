@@ -185,7 +185,7 @@ a.fa, a.fa:link {
    font-weight: normal;
 }
 #page a.fa, #page a.fa:link, a .fa {
-   color: #222;
+   color: #fff;
 }
 
 a:hover {
