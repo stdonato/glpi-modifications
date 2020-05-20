@@ -35,9 +35,9 @@ if(!is_file(GLPI_ROOT.'/index.php.bak')) {
 	copy(GLPI_MOD_DIR.'/src/script.js', GLPI_ROOT.'/script.js');
 	
 	//css
-	rename(GLPI_ROOT.'/css_compiled', GLPI_ROOT.'/css_compiled.bak');
 	rename(GLPI_ROOT.'/css', GLPI_ROOT.'/css.bak');
 	recurse_copy(GLPI_MOD_DIR.'/src/css/', GLPI_ROOT.'/css/');
+	rename(GLPI_ROOT.'/css_compiled', GLPI_ROOT.'/css_compiled.bak');
 	
 	//font awesome
 	recurse_copy(GLPI_MOD_DIR.'/src/fonts/', GLPI_ROOT.'/fonts/');

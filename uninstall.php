@@ -48,7 +48,7 @@ if(is_file(GLPI_ROOT.'/index.php.bak')) {
 //	exec('rm -r '.GLPI_ROOT.'/css');
 	deleteAll(GLPI_ROOT.'/css');
 	rename(GLPI_ROOT.'/css.bak', GLPI_ROOT.'/css');
-        rename(GLPI_ROOT.'/css_compiled.bak', GLPI_ROOT.'/css_compiled');	
+	rename(GLPI_ROOT.'/css_compiled.bak', GLPI_ROOT.'/css_compiled');
 	
 //	exec('rm '.GLPI_ROOT.'/pics/fd_logo.png');
 	array_map('unlink', array_filter((array) glob(GLPI_ROOT.'/pics/fd_logo.png')));
