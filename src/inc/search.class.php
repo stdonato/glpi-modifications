@@ -445,27 +445,27 @@ class Search {
             foreach ($criteria as $criterion) {
                // recursive call
                if (isset($criterion['criteria'])) {
-                  return $parse_criteria($criterion['criteria']);
-               }
-
-               // normal behavior
-               if (isset($criterion['field'])
-                   && !in_array($criterion['field'], $data['toview'])) {
-                  if ($criterion['field'] != 'all'
-                      && $criterion['field'] != 'view'
-                      && (!isset($criterion['meta'])
-                          || !$criterion['meta'])) {
-                     array_push($data['toview'], $criterion['field']);
-                  } else if ($criterion['field'] == 'all') {
-                     $data['search']['all_search'] = true;
-                  } else if ($criterion['field'] == 'view') {
-                     $data['search']['view_search'] = true;
+                  $parse_criteria($criterion['criteria']);
+               } else {
+                  // normal behavior
+                  if (isset($criterion['field'])
+                     && !in_array($criterion['field'], $data['toview'])) {
+                     if ($criterion['field'] != 'all'
+                        && $criterion['field'] != 'view'
+                        && (!isset($criterion['meta'])
+                           || !$criterion['meta'])) {
+                        array_push($data['toview'], $criterion['field']);
+                     } else if ($criterion['field'] == 'all') {
+                        $data['search']['all_search'] = true;
+                     } else if ($criterion['field'] == 'view') {
+                        $data['search']['view_search'] = true;
+                     }
                   }
-               }
 
-               if (isset($criterion['value'])
-                   && (strlen($criterion['value']) > 0)) {
-                  $data['search']['no_search'] = false;
+                  if (isset($criterion['value'])
+                     && (strlen($criterion['value']) > 0)) {
+                     $data['search']['no_search'] = false;
+                  }
                }
             }
          };
@@ -1140,7 +1140,6 @@ class Search {
          if (!in_array(getTableForItemType($m_itemtype), $already_link_tables)) {
             $FROM .= self::addMetaLeftJoin($data['itemtype'], $m_itemtype,
                                            $already_link_tables,
-                                           $criterion['value'] == "NULL" || strstr($criterion['link'], "NOT"),
                                            $sopt["joinparams"]);
          }
 
@@ -1940,14 +1939,6 @@ class Search {
                   $gdname    = '';
                   $valuename = '';
 
-                  if (isset($criteria['meta']) && $criteria['meta']) {
-                     $searchoptname = sprintf(__('%1$s / %2$s'),
-                                    $criteria['itemtype'],
-                                    $searchopt[$criteria['field']]["name"]);
-                  } else {
-                     $searchoptname = $searchopt[$criteria['field']]["name"];
-                  }
-
                   switch ($criteria['field']) {
                      case "all" :
                         $titlecontain = sprintf(__('%1$s %2$s'), $titlecontain, __('All'));
@@ -1958,6 +1949,14 @@ class Search {
                         break;
 
                      default :
+                        if (isset($criteria['meta']) && $criteria['meta']) {
+                           $searchoptname = sprintf(__('%1$s / %2$s'),
+                                          $criteria['itemtype'],
+                                          $searchopt[$criteria['field']]["name"]);
+                        } else {
+                           $searchoptname = $searchopt[$criteria['field']]["name"];
+                        }
+
                         $titlecontain = sprintf(__('%1$s %2$s'), $titlecontain, $searchoptname);
                         $itemtype     = getItemTypeForTable($searchopt[$criteria['field']]["table"]);
                         $valuename    = '';
@@ -2433,7 +2432,7 @@ JAVASCRIPT;
       global $CFG_GLPI;
 
       if (!isset($request["itemtype"])
-          || !isset($request["num"]) ) {
+          || !isset($request["num"])) {
          return "";
       }
 
@@ -2543,6 +2542,16 @@ JAVASCRIPT;
 
       if (isset($criteria['field'])) {
          $value = $criteria['field'];
+      } else if (isset($request['from_meta'])
+         && $request['from_meta']
+         && count($values)) {
+         // Get first field of the first category
+         foreach ($values as $categories) {
+            foreach ($categories as $field_id => $field_name) {
+               $value = $field_id;
+               break 2;
+            }
+         }
       }
 
       $rand = Dropdown::showFromArray("criteria{$prefix}[$num][field]", $values, [
@@ -2604,7 +2613,7 @@ JAVASCRIPT;
       global $CFG_GLPI;
 
       if (!isset($request["itemtype"])
-          || !isset($request["num"]) ) {
+          || !isset($request["num"])) {
          return "";
       }
 
@@ -2824,7 +2833,7 @@ JAVASCRIPT;
       global $CFG_GLPI;
       if (!isset($request["itemtype"])
           || !isset($request["field"])
-          || !isset($request["num"]) ) {
+          || !isset($request["num"])) {
          return "";
       }
 
@@ -3153,7 +3162,9 @@ JAVASCRIPT;
 
       $addtable = '';
 
-      if (($table != getTableForItemType($itemtype))
+      $is_fkey_composite_on_self = getTableNameForForeignKeyField($searchopt[$ID]["linkfield"]) == $table
+         && $searchopt[$ID]["linkfield"] != getForeignKeyFieldForTable($table);
+      if (($is_fkey_composite_on_self || $table != getTableForItemType($itemtype))
           && ($searchopt[$ID]["linkfield"] != getForeignKeyFieldForTable($table))) {
          $addtable .= "_".$searchopt[$ID]["linkfield"];
       }
@@ -3205,7 +3216,7 @@ JAVASCRIPT;
                                  ".$table.$addtable.".$name2 $order,
                                  ".$table.$addtable.".`name` $order";
             }
-            return " ORDER BY `".$table."`.`name` $order";
+            return " ORDER BY `".$table.$addtable."`.`name` $order";
 
          case "glpi_networkequipments.ip" :
          case "glpi_ipaddresses.name" :
@@ -3278,6 +3289,7 @@ JAVASCRIPT;
 
       // Add entity view :
       if (Session::isMultiEntitiesMode()
+          && $item->isEntityAssign()
           && (isset($CFG_GLPI["union_search_type"][$itemtype])
               || ($item && $item->maybeRecursive())
               || isset($_SESSION['glpiactiveentities']) && (count($_SESSION["glpiactiveentities"]) > 1))) {
@@ -3295,6 +3307,7 @@ JAVASCRIPT;
     * @return select string
    **/
    static function addDefaultSelect($itemtype) {
+      global $DB;
 
       $itemtable = getTableForItemType($itemtype);
       $item      = null;
@@ -3322,7 +3335,12 @@ JAVASCRIPT;
       if ($itemtable == 'glpi_entities') {
          $ret .= "`$itemtable`.`id` AS entities_id, '1' AS is_recursive, ";
       } else if ($mayberecursive) {
-         $ret .= "`$itemtable`.`entities_id`, `$itemtable`.`is_recursive`, ";
+         $ret .= $DB->quoteName("$itemtable.entities_id").", ";
+         //do not include field if not present in table
+         $item->getEmpty();
+         if (isset($item->fields['is_recursive'])) {
+            $ret .= $DB->quoteName("$itemtable.is_recursive").", ";
+         }
       }
       return $ret;
    }
@@ -3355,7 +3373,9 @@ JAVASCRIPT;
          $complexjoin = self::computeComplexJoinID($searchopt[$ID]['joinparams']);
       }
 
-      if (((($table != getTableForItemType($itemtype))
+      $is_fkey_composite_on_self = getTableNameForForeignKeyField($searchopt[$ID]["linkfield"]) == $table
+         && $searchopt[$ID]["linkfield"] != getForeignKeyFieldForTable($table);
+      if (((($is_fkey_composite_on_self || $table != getTableForItemType($itemtype))
             && (!isset($CFG_GLPI["union_search_type"][$itemtype])
                 || ($CFG_GLPI["union_search_type"][$itemtype] != $table)))
            || !empty($complexjoin))
@@ -3556,6 +3576,19 @@ JAVASCRIPT;
                                     AS `".$NAME."`,
                         $ADDITONALFIELDS";
             }
+            break;
+
+         case "glpi_itilfollowups.content":
+         case "glpi_tickettasks.content":
+         case "glpi_changetasks.content":
+               // force ordering by date desc
+               return " GROUP_CONCAT(DISTINCT CONCAT(IFNULL($tocompute, '".self::NULLVALUE."'),
+                                               '".self::SHORTSEP."',$tocomputeid)
+                                     ORDER BY `$table$addtable`.`date` DESC
+                                     SEPARATOR '".self::LONGSEP."')
+                                    AS `".$NAME."`,
+
+                       $ADDITONALFIELDS";
             break;
 
          default:
@@ -3877,6 +3910,85 @@ JAVASCRIPT;
             $condition = SavedSearch::addVisibilityRestrict();
             break;
 
+         case 'TicketTask':
+            // Filter on is_private
+            $allowed_is_private = [];
+            if (Session::haveRight(TicketTask::$rightname, CommonITILTask::SEEPRIVATE)) {
+               $allowed_is_private[] = 1;
+            }
+            if (Session::haveRight(TicketTask::$rightname, CommonITILTask::SEEPUBLIC)) {
+               $allowed_is_private[] = 0;
+            }
+
+            // If the user can't see public and private
+            if (!count($allowed_is_private)) {
+               $condition = "0 = 1";
+               break;
+            }
+
+            $in = "IN ('" . implode("','", $allowed_is_private) . "')";
+            $condition = "(`glpi_tickettasks`.`is_private` $in ";
+
+            // Check for assigned or created tasks
+            $condition .= "OR `users_id` = " . Session::getLoginUserID() . " ";
+            $condition .= "OR `users_id_tech` = " . Session::getLoginUserID() . " ";
+
+            // Check for parent item visibility unless the user can see all the
+            // possible parents
+            if (!Session::haveRight('ticket', Ticket::READALL)) {
+               $condition .= "AND " . TicketTask::buildParentCondition();
+            }
+
+            $condition .= ")";
+
+            break;
+
+         case 'ITILFollowup':
+            // Filter on is_private
+            $allowed_is_private = [];
+            if (Session::haveRight(ITILFollowup::$rightname, ITILFollowup::SEEPRIVATE)) {
+               $allowed_is_private[] = 1;
+            }
+            if (Session::haveRight(ITILFollowup::$rightname, ITILFollowup::SEEPUBLIC)) {
+               $allowed_is_private[] = 0;
+            }
+
+            // If the user can't see public and private
+            if (!count($allowed_is_private)) {
+               $condition = "0 = 1";
+               break;
+            }
+
+            $in = "IN ('" . implode("','", $allowed_is_private) . "')";
+            $condition = "(`glpi_itilfollowups`.`is_private` $in ";
+
+            // Now filter on parent item visiblity
+            $condition .= "AND (";
+
+            // Filter for "ticket" parents
+            $condition .= ITILFollowup::buildParentCondition(\Ticket::getType());
+            $condition .= "OR ";
+
+            // Filter for "change" parents
+            $condition .= ITILFollowup::buildParentCondition(
+               \Change::getType(),
+               'changes_id',
+               "glpi_changes_users",
+               "glpi_changes_groups"
+            );
+            $condition .= "OR ";
+
+            // Fitler for "problem" parents
+            $condition .= ITILFollowup::buildParentCondition(
+               \Problem::getType(),
+               'problems_id',
+               "glpi_problems_users",
+               "glpi_groups_problems"
+            );
+            $condition .= "))";
+
+            break;
+
          default :
             // Plugin can override core definition for its type
             if ($plug = isPluginItemType($itemtype)) {
@@ -3891,7 +4003,6 @@ JAVASCRIPT;
       list($itemtype, $condition) = Plugin::doHookFunction('add_default_where', [$itemtype, $condition]);
       return $condition;
    }
-
 
    /**
     * Generic Function to add where to a request
@@ -3917,8 +4028,10 @@ JAVASCRIPT;
 
       $inittable = $table;
       $addtable  = '';
+      $is_fkey_composite_on_self = getTableNameForForeignKeyField($searchopt[$ID]["linkfield"]) == $table
+         && $searchopt[$ID]["linkfield"] != getForeignKeyFieldForTable($table);
       if (($table != 'asset_types')
-          && ($table != getTableForItemType($itemtype))
+          && ($is_fkey_composite_on_self || $table != getTableForItemType($itemtype))
           && ($searchopt[$ID]["linkfield"] != getForeignKeyFieldForTable($table))) {
          $addtable = "_".$searchopt[$ID]["linkfield"];
          $table   .= $addtable;
@@ -3950,11 +4063,10 @@ JAVASCRIPT;
             case "date" :
             case "date_delay" :
                $force_day = true;
-               if ($searchopt[$ID]["datatype"] == 'datetime') {
+               if ($searchopt[$ID]["datatype"] == 'datetime'
+                  && !(strstr($val, 'BEGIN') || strstr($val, 'LAST') || strstr($val, 'DAY'))
+               ) {
                   $force_day = false;
-               }
-               if (strstr($val, 'BEGIN') || strstr($val, 'LAST')) {
-                  $force_day = true;
                }
 
                $val = Html::computeGenericDateTimeSearch($val, $force_day);
@@ -4028,7 +4140,19 @@ JAVASCRIPT;
          case "glpi_users.name" :
             if ($itemtype == 'User') { // glpi_users case / not link table
                if (in_array($searchtype, ['equals', 'notequals'])) {
-                  return " $link `$table`.`id`".$SEARCH;
+                  $search_str = "`$table`.`id`" . $SEARCH;
+
+                  if ($searchtype == 'notequals') {
+                     $nott = !$nott;
+                  }
+
+                  // Add NULL if $val = 0 and not negative search
+                  // Or negative search on real value
+                  if ((!$nott && ($val == 0)) || ($nott && ($val != 0))) {
+                     $search_str .= " OR `$table`.`id` IS NULL";
+                  }
+
+                  return " $link ($search_str)";
                }
                return self::makeTextCriteria("`$table`.`$field`", $val, $nott, $link);
             }
@@ -4263,6 +4387,15 @@ JAVASCRIPT;
             }
             break;
 
+         case "glpi_notifications.event" :
+            if (in_array($searchtype, ['equals', 'notequals']) && strpos($val, self::SHORTSEP)) {
+               $not = 'notequals' === $searchtype ? 'NOT' : '';
+               list($itemtype_val, $event_val) = explode(self::SHORTSEP, $val);
+               return " $link $not(`$table`.`event` = '$event_val'
+                               AND `$table`.`itemtype` = '$itemtype_val')";
+            }
+            break;
+
       }
 
       //// Default cases
@@ -4421,6 +4554,8 @@ JAVASCRIPT;
                   return $link." ($tocompute ".$regs[1]." ".$regs[3].") ";
                }
                if (is_numeric($val)) {
+                  $numeric_val = floatval($val);
+
                   if (isset($searchopt[$ID]["width"])) {
                      $ADD = "";
                      if ($nott
@@ -4428,18 +4563,18 @@ JAVASCRIPT;
                         $ADD = " OR $tocompute IS NULL";
                      }
                      if ($nott) {
-                        return $link." ($tocompute < ".(intval($val) - $searchopt[$ID]["width"])."
-                                        OR $tocompute > ".(intval($val) + $searchopt[$ID]["width"])."
+                        return $link." ($tocompute < ".($numeric_val - $searchopt[$ID]["width"])."
+                                        OR $tocompute > ".($numeric_val + $searchopt[$ID]["width"])."
                                         $ADD) ";
                      }
-                     return $link." (($tocompute >= ".(intval($val) - $searchopt[$ID]["width"])."
-                                      AND $tocompute <= ".(intval($val) + $searchopt[$ID]["width"]).")
+                     return $link." (($tocompute >= ".($numeric_val - $searchopt[$ID]["width"])."
+                                      AND $tocompute <= ".($numeric_val + $searchopt[$ID]["width"]).")
                                      $ADD) ";
                   }
                   if (!$nott) {
-                     return " $link ($tocompute = ".(intval($val)).") ";
+                     return " $link ($tocompute = $numeric_val) ";
                   }
-                  return " $link ($tocompute <> ".(intval($val)).") ";
+                  return " $link ($tocompute <> $numeric_val) ";
                }
                break;
          }
@@ -4682,9 +4817,13 @@ JAVASCRIPT;
 
       $complexjoin = self::computeComplexJoinID($joinparams);
 
+      $is_fkey_composite_on_self = getTableNameForForeignKeyField($linkfield) == $ref_table
+         && $linkfield != getForeignKeyFieldForTable($ref_table);
+
       // Auto link
       if (($ref_table == $new_table)
-          && empty($complexjoin)) {
+          && empty($complexjoin)
+          && !$is_fkey_composite_on_self) {
          $transitemtype = getItemTypeForTable($new_table);
          if (Session::haveTranslations($transitemtype, $field)) {
             $transAS            = $nt.'_trans';
@@ -4932,18 +5071,12 @@ JAVASCRIPT;
     * @param $from_type                   reference item type ID
     * @param $to_type                     item type to add
     * @param $already_link_tables2  array of tables already joined
-    * @param $nullornott                  Used LEFT JOIN (null generation)
-    *                                     or INNER JOIN for strict join
     *
     * @return Meta Left join string
    **/
    static function addMetaLeftJoin($from_type, $to_type, array &$already_link_tables2,
-                                   $nullornott, $joinparams = []) {
-
-      $LINK = " INNER JOIN ";
-      if ($nullornott) {
-         $LINK = " LEFT JOIN ";
-      }
+                                   $joinparams = []) {
+      $LINK = " LEFT JOIN ";
 
       $from_table = getTableForItemType($from_type);
       $from_fk    = getForeignKeyFieldForTable($from_table);
@@ -5677,16 +5810,24 @@ JAVASCRIPT;
                   }
 
                   $color = $_SESSION['glpiduedateok_color'];
-                  $bar_color = 'green';
                   if ($less_crit < $less_crit_limit) {
                      $color = $_SESSION['glpiduedatecritical_color'];
-                     $bar_color = 'red';
                   } else if ($less_warn < $less_warn_limit) {
                      $color = $_SESSION['glpiduedatewarning_color'];
-                     $bar_color = 'yellow';
                   }
 
-		  // Stevenes Donato
+                  if (!isset($so['datatype'])) {
+                     $so['datatype'] = 'progressbar';
+                  }
+
+                  $progressbar_data = [
+                     'text'         => Html::convDateTime($data[$ID][0]['name']),
+                     'percent'      => $percentage,
+                     'percent_text' => $percentage_text,
+                     'color'        => $color
+                  ];
+
+		  				// Stevenes Donato
 		  
                   //bar colors						
 						if($percentage == 100) { $cor = "progress-bar-danger"; }
@@ -5708,7 +5849,7 @@ JAVASCRIPT;
                }
                break;
  	
-		// Stevenes Donato
+					// Stevenes Donato
 
             case "glpi_softwarelicenses.number" :
                if ($data[$ID][0]['min'] == -1) {
@@ -5907,8 +6048,7 @@ JAVASCRIPT;
                if ($data[$ID][0]['is_active']) {
                   return "<a href='reservation.php?reservationitems_id=".
                                           $data["refID"]."' title=\"".__s('See planning')."\">".
-                                          "<i class='far fa-calendar-alt'></i>";
-                                          "<span class='sr-only'>".__('See planning')."</span></a>";
+                                          "<i class='far fa-calendar-alt'></i><span class='sr-only'>".__('See planning')."</span></a>";
                } else {
                   return "&nbsp;";
                }
@@ -7215,7 +7355,7 @@ JAVASCRIPT;
             header('Pragma: private'); /// IE BUG + SSL
             header('Cache-control: private, must-revalidate'); /// IE BUG + SSL
             header("Content-disposition: filename=glpi.csv");
-            header('Content-type: application/octetstream');
+            header('Content-type: text/csv');
             // zero width no break space (for excel)
             echo"\xEF\xBB\xBF";
             break;
@@ -7489,6 +7629,11 @@ JAVASCRIPT;
             ($matches[1] != '^' ? '%' : '') .
             trim($matches[2]) .
             ($matches[3] != '$' ? '%' : '');
+      } else if (isset($matches[1])
+            && strlen(trim($matches[1])) == 1
+            && (!isset($matches[3]) || empty($matches[3]))) {
+         // this case is for search with only ^, so mean the field is not empty / not null
+         $search = '%';
       }
       return $search;
    }

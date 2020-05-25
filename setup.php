@@ -65,7 +65,7 @@ function plugin_version_mod(){
 	global $DB, $LANG;
 
 	return array('name'			   => __('GLPI Modifications'),
-					'version' 			=> '1.5.3',
+					'version' 			=> '1.5.4',
 					'author'			   => '<a href="mailto:stevenesdonato@gmail.com"> Stevenes Donato </b> </a>',
 					'license'		 	=> 'GPLv2+',
 					'homepage'			=> 'https://github.com/stdonato/glpi-modifications',
@@ -88,4 +88,6 @@ function plugin_mod_check_config($verbose=false){
 	}
 	return true;
 }
+
+
 ?>
