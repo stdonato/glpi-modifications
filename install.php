@@ -8,9 +8,11 @@ if (!defined("GLPI_MOD_DIR")) {
 
 function recurse_copy($src,$dst) { 
     $dir = opendir($src); 
+    
     if (false === is_dir($dst)) {
     	@mkdir($dst);
     }
+    
     while(false !== ( $file = readdir($dir)) ) { 
         if (( $file != '.' ) && ( $file != '..' )) { 
             if ( is_dir($src . '/' . $file) ) { 
@@ -69,8 +71,8 @@ else {
 	copy(GLPI_MOD_DIR.'/src/css/styles.css', GLPI_ROOT.'/css/styles.css');
 	copy(GLPI_MOD_DIR.'/src/pics/logo_big-def.png', GLPI_ROOT.'/pics/logo_big-def.png');
 	//recurse_copy(GLPI_MOD_DIR.'/src/pics/bg/', GLPI_ROOT.'/pics/bg/');
-        recurse_copy(GLPI_MOD_DIR.'/src/css/js/', GLPI_ROOT.'/css/js/');	
    recurse_copy(GLPI_MOD_DIR.'/src/css/js/', GLPI_ROOT.'/css/js/');	
+
 }	
 
 ?>
