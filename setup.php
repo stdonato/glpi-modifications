@@ -72,13 +72,13 @@ function plugin_version_mod(){
 					'minGlpiVersion'	=> '9.4.6');
 }
 
+
 function plugin_mod_check_prerequisites(){
-     if (GLPI_VERSION >= '9.4.6'){   	
-	         return true;	     	         
-     } 
-     else {
-         echo "GLPI version not compatible need 9.4.6";
-     }
+  if (version_compare(GLPI_VERSION, '9.4.6', 'lt') || version_compare(GLPI_VERSION, '9.5', 'ge')) {    
+      echo "GLPI version not compatible! 9.4.6 only";
+      return false;
+   }
+   return true;
 }
 
 
