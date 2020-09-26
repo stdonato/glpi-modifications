@@ -1,4 +1,3 @@
-# Anúncio:
 
 # Plugin compatível com GLPI 9.5.x.
 
