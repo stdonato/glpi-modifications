@@ -39,7 +39,7 @@ if ($plugin->isActivated("mod")) {
 				
 				move_uploaded_file($_FILES['photo']['tmp_name'], $target);
 				
-				rename('../../pics/'.basename($_FILES['photo']['name']), '../../pics/logo_big.png');
+				rename('../../pics/'.basename($_FILES['photo']['name']), '../../pics/login_logo_glpi.png');
 				$message = 'Congratulations!  Your file was accepted.';
 				header('Location: ../../plugins/mod/config.php ');
 				//echo $message;

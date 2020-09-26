@@ -29,7 +29,7 @@
  */
 
 /**
- * @name plugin_mod_install
+ * //@name plugin_mod_install
  * @access public
  * @return boolean
  */
@@ -49,9 +49,7 @@ function plugin_init_mod() {
 	   ]);
 	             
 	   $PLUGIN_HOOKS['config_page']['mod'] = 'config.php';
-	   $PLUGIN_HOOKS['add_javascript']['mod'][] = "scripts/stats.js";
-	   $PLUGIN_HOOKS['add_javascript']['mod'][] = "scripts/ind.js";
- 	   include('install.php');                     
+	    include('install.php');                     
  	}  
  	
  	if ($plugin->isInstalled('mod') && !$plugin->isActivated('mod')) {
@@ -65,17 +63,17 @@ function plugin_version_mod(){
 	global $DB, $LANG;
 
 	return array('name'			   => __('GLPI Modifications'),
-					'version' 			=> '1.5.5',
-					'author'			   => '<a href="mailto:stevenesdonato@gmail.com"> Stevenes Donato </b> </a>',
+					'version' 			=> '2.0.0',
+					'author'			   => '<a href="mailto:Stevenes Donato@gmail.com"> Stevenes Donato </b> </a>',
 					'license'		 	=> 'GPLv2+',
 					'homepage'			=> 'https://github.com/stdonato/glpi-modifications',
-					'minGlpiVersion'	=> '9.4.6');
+					'minGlpiVersion'	=> '9.5');
 }
 
 
 function plugin_mod_check_prerequisites(){
-  if (version_compare(GLPI_VERSION, '9.4.6', 'lt') || version_compare(GLPI_VERSION, '9.5', 'ge')) {    
-      echo "GLPI version not compatible! 9.4.6 only";
+  if (version_compare(GLPI_VERSION, '9.5', 'lt') || version_compare(GLPI_VERSION, '9.6', 'ge')) {    
+      echo "GLPI version not compatible! 9.5.x only";
       return false;
    }
    return true;
