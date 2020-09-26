@@ -9,17 +9,17 @@ $plugin = new Plugin();
 if ($plugin->isActivated("mod")) {
 
 	//if they DID upload a file...
-	if($_FILES['photo']['name'])
+	if($_FILES['photo2']['name'])
 	{
 		//if no errors...
-		if(!$_FILES['photo']['error'])
+		if(!$_FILES['photo2']['error'])
 		{
 			//now is the time to modify the future file name and validate the file
-			$new_file_name = strtolower($_FILES['photo']['name']); //rename file
+			$new_file_name = strtolower($_FILES['photo2']['name']); //rename file
 			
-			$info = getimagesize($_FILES['photo']['tmp_name']);
+			$info = getimagesize($_FILES['photo2']['tmp_name']);
 
-			if($_FILES['photo']['size'] > (1024000)) //can't be larger than 1 MB
+			if($_FILES['photo2']['size'] > (1024000)) //can't be larger than 1 MB
 			{
 				$valid_file = false;
 				$message = 'Oops!  Your file\'s size is to large.';
@@ -35,11 +35,11 @@ if ($plugin->isActivated("mod")) {
 			{
 				//move it to where we want it to be
 				$currentdir = getcwd();
-				$target = '../../pics/' . basename($_FILES['photo']['name']);
+				$target = '../../pics/' . basename($_FILES['photo2']['name']);
 				
-				move_uploaded_file($_FILES['photo']['tmp_name'], $target);
+				move_uploaded_file($_FILES['photo2']['tmp_name'], $target);
 				
-				rename('../../pics/'.basename($_FILES['photo']['name']), '../../pics/logo_big.png');
+				rename('../../pics/'.basename($_FILES['photo2']['name']), '../../pics/fd_logo.png');
 				$message = 'Congratulations!  Your file was accepted.';
 				header('Location: ../../plugins/mod/config.php ');
 				//echo $message;
@@ -50,7 +50,7 @@ if ($plugin->isActivated("mod")) {
 		{
 			//set that to be the returned message
 			header('Location: ../../plugins/mod/config.php ');
-			$message = 'Ooops!  Your upload triggered the following error:  '.$_FILES['photo']['error'];
+			$message = 'Ooops!  Your upload triggered the following error:  '.$_FILES['photo2']['error'];
 			echo $message;
 		}
 	}
