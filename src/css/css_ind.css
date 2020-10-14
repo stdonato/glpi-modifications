@@ -1,5 +1,5 @@
 
-a, a:link {
+/*a, a:link {
    font-weight: bold;
    text-decoration: none !important;
    font-size : 11px;
@@ -9,7 +9,7 @@ a.fa, a.fa:link {
    font-size: inherit;
    font-weight: normal;
 }
-
+*/
 #page a.fa-clock, #page a.fa:link, a .fa-clock, a .fa-tasks, a .fa-ticket-alt, a .fa-plus-mod  {
    color: #fff;
 }
@@ -33,10 +33,19 @@ hr {
 .label-primary {
     background-color: #337ab7;
 }
-.label {
+
+.label-warning {
+    background-color: #f0ad4e;
+}
+
+.label-danger {
+    background-color: #d9534f;
+}
+
+.label_ind {
     border: 0px solid #000;
 }
-.label {
+.label_ind {
     display: inline;
     padding: .2em .6em .3em;
     font-size: 75%;

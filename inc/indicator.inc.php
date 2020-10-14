@@ -118,26 +118,26 @@ echo "<ul>\n";
 echo "<li id='count' class='' style='font-size:12px;' title='". _n('Ticket task','Ticket tasks',2) ."'>\n";
 echo "<a href='".$href_tasks."' class='' data-toggle='dropdown' role='button' aria-expanded='false'>
 		<i class='fa fa-tasks' style='vertical-align:bottom; font-size:15px;'></i> 
-		<span class='label ".$label3."' style='font-size:12px;' >". $num_tasks. "</span></a>\n";
+		<span class='label label_ind ".$label3."' style='font-size:12px;' >". $num_tasks. "</span></a>\n";
 echo "</li>\n";
 
 //late tickets
 echo "<li id='count' class='dropdown' style='font-size:12px;' title='". __('Late') ."'>
 		<a href='".$href_due."'>
 		<i style='vertical-align:bottom; font-size:15px;' class='fa fa-clock '></i>
-		<span class='label ".$label."' style='font-size:12px;'>". $due. "</span></a></li>\n";
+		<span class='label label_ind ".$label."' style='font-size:12px;'>". $due. "</span></a></li>\n";
 
 //tickets
 echo "<li id='count' class='dropdown' style='font-size:12px;' title='". _nx('ticket','Opened','Opened',2) ."'>
 		<a href='".$href_cham."'>
 		<i style='vertical-align:bottom; font-size:16px;' class='fa fa-ticket-alt' ></i>
-		<span class='label ".$label2."' style='font-size:12px;' >". $number. "</span></a></li>\n";
+		<span class='label label_ind ".$label2."' style='font-size:12px;' >". $number. "</span></a></li>\n";
 
 //new ticket
 echo "<li id='count' class='' style='font-size:12px; margin-top:0px;' title='". __('Create ticket') ."'>";
 echo "<a href='".$CFG_GLPI["root_doc"]."/front/ticket.form.php' style='margin-top:2px;' data-toggle='dropdown' role='button' aria-expanded='false'>
 		<!-- <i class='fa fa-plus' style='vertical-align:bottom; font-size:15px;'></i>  -->
-		<span class='label label-primary' style='font-size:12px;' >
+		<span class='label label_ind label-primary' style='font-size:12px;' >
 			<i class='fa fa-plus fa-plus-mod' style='vertical-align:bottom; font-size:15px;'></i> 
 		</span></a>\n";
 echo "</li>\n";
