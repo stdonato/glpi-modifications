@@ -37,6 +37,7 @@ if(!is_file(GLPI_ROOT.'/index.php.bak')) {
 	//css
 	rename(GLPI_ROOT.'/css_compiled/css_styles.min.css', GLPI_ROOT.'/css_compiled/css_styles.min.css.bak');
 	copy(GLPI_MOD_DIR.'/src/css/css_styles.min.css', GLPI_ROOT.'/css_compiled/css_styles.min.css');
+	copy(GLPI_MOD_DIR.'/src/css/css_ind.css', GLPI_ROOT.'/css_compiled/css_ind.css');
 	
 	//images
 	recurse_copy(GLPI_MOD_DIR.'/src/pics/', GLPI_ROOT.'/pics/');

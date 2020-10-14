@@ -32,12 +32,9 @@ if(is_file(GLPI_ROOT.'/index.php.bak')) {
 	//exec('rm '.GLPI_ROOT.'/index.php');
 	array_map('unlink', array_filter((array) glob("/index.php")));
 	rename(GLPI_ROOT.'/index.php.bak', GLPI_ROOT.'/index.php');
-
-
-
-//	exec('rm -r '.GLPI_ROOT.'/css');
 	
 	rename(GLPI_ROOT.'/css_compiled/css_styles.min.css.bak', GLPI_ROOT.'/css_compiled/css_styles.min.css');
+	deleteAll(GLPI_ROOT.'/css_compiled/css_ind.css');
 	
 	//exec('rm '.GLPI_ROOT.'/pics/favicon.ico');
 	deleteAll(GLPI_ROOT.'/pics/bg');

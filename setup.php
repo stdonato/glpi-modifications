@@ -47,7 +47,8 @@ function plugin_init_mod() {
 	   Plugin::registerClass('PluginMod', [
 	      'addtabon' => ['Config']
 	   ]);
-	             
+
+	   $PLUGIN_HOOKS['add_javascript']['mod'][] = "scripts/ind.js";	             
 	   $PLUGIN_HOOKS['config_page']['mod'] = 'config.php';
 	    include('install.php');                     
  	}  
@@ -63,7 +64,7 @@ function plugin_version_mod(){
 	global $DB, $LANG;
 
 	return array('name'			   => __('GLPI Modifications'),
-					'version' 			=> '2.0.0',
+					'version' 			=> '2.0.1',
 					'author'			   => '<a href="mailto:Stevenes Donato@gmail.com"> Stevenes Donato </b> </a>',
 					'license'		 	=> 'GPLv2+',
 					'homepage'			=> 'https://github.com/stdonato/glpi-modifications',
