@@ -6,27 +6,30 @@ if (!defined("GLPI_MOD_DIR")) {
    define("GLPI_MOD_DIR", GLPI_ROOT."/plugins/mod");  
 }
 
-function recurse_copy($src,$dst) { 
-    $dir = opendir($src); 
-    
-    if (false === is_dir($dst)) {
-    	@mkdir($dst);
-    }
-    
-    while(false !== ( $file = readdir($dir)) ) { 
-        if (( $file != '.' ) && ( $file != '..' )) { 
-            if ( is_dir($src . '/' . $file) ) { 
-                recurse_copy($src . '/' . $file,$dst . '/' . $file); 
-            } 
-            else { 
-                copy($src . '/' . $file,$dst . '/' . $file); 
-            } 
-        } 
-    } 
-    closedir($dir); 
+
+if(!function_exists("recurse_copy")) {
+
+	function recurse_copy($src,$dst) { 
+	    $dir = opendir($src); 
+	    
+	    if (false === is_dir($dst)) {
+	    	@mkdir($dst);
+	    }
+	    
+	    while(false !== ( $file = readdir($dir)) ) { 
+	        if (( $file != '.' ) && ( $file != '..' )) { 
+	            if ( is_dir($src . '/' . $file) ) { 
+	                recurse_copy($src . '/' . $file,$dst . '/' . $file); 
+	            } 
+	            else { 
+	                copy($src . '/' . $file,$dst . '/' . $file); 
+	            } 
+	        } 
+	    } 
+	    closedir($dir); 
+	}
+
 }
-
-
 
 //without plugin
 if(!is_file(GLPI_ROOT.'/index.php.bak')) {
