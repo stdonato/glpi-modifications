@@ -6,5 +6,5 @@
 
 #  GLPI 9.5.x compatible
 
-- Before installing, remove any previous versions.
+- Before install remove any previous versions of plugin.
 - Rename the unziped folder to "mod".
