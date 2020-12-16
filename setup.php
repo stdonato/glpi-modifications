@@ -64,7 +64,7 @@ function plugin_version_mod(){
 	global $DB, $LANG;
 
 	return array('name'			   => __('GLPI Modifications'),
-					'version' 			=> '2.0.2',
+					'version' 			=> '2.0.3',
 					'author'			   => '<a href="mailto:Stevenes Donato@gmail.com"> Stevenes Donato </b> </a>',
 					'license'		 	=> 'GPLv2+',
 					'homepage'			=> 'https://github.com/stdonato/glpi-modifications',
