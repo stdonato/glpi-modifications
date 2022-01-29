@@ -1,5 +1,5 @@
 # Atenção: 
-# Com o lançamento do GLPI 10, em 15/12/2021, este plugin será descontinuado.
+# Com o lançamento do GLPI 10 este plugin será descontinuado.
 Mais informações em: 
 
 https://glpi-project.org/
@@ -8,7 +8,7 @@ https://glpi10.com/
 
 
 # Attention:
-# With the release of GLPI 10, on 15/12/2021, this plugin will be discontinued. 
+# With the release of GLPI 10 this plugin will be discontinued. 
 More info:
 
 https://glpi-project.org/ 
